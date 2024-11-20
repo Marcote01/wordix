@@ -25,6 +25,26 @@ const ESTADO_LETRA_PERTENECE = "pertenece";
 /**************************************/
 /***** DEFINICION DE FUNCIONES ********/
 /**************************************/
+/* Funcion que invoca el menu de opciones*/ 
+ //return int $opcion
+
+function menuDeOpciones(){
+    do{
+    echo "Seleccioná el número que desees: \n
+    1) Jugá al wordix con una palabra a elegir por vos! \n
+    2) Jugá al wordix con una palabra aleatoria! \n
+    3) Visualizá datos de una partida anterior: \n
+    4) Visualizá la primera victoria del jugador que quieras: \n
+    5) Visualizá las estadísticas de un jugador: \n
+    6) Visualizá listado de partidas ordenadas alfabéticamente por jugador y por palabra: \n
+    7) Agregá tu palabra de 5 letras al juego Wordix: \n
+    8) Salir. \n";
+    $opcion = trim(fgets(STDIN));
+    } while($opcion > 8 && $opcion<1);
+
+    return $opcion;
+}
+
 
 /**
  *  ****COMPLETAR*****
@@ -32,8 +52,8 @@ const ESTADO_LETRA_PERTENECE = "pertenece";
 function solicitarNumeroEntre($min, $max)
 {
     //int $numero
-    echo"Por favor, ingrese un numero: ";
-    $numero = trim(fgets(STDIN));
+
+   
 
     if (is_numeric($numero)) { //determina si un string es un número. puede ser float como entero.
         $numero  = $numero * 1; //con esta operación convierto el string en número.
