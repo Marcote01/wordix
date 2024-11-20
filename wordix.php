@@ -133,7 +133,7 @@ function escribirMensajeBienvenida($usuario)
 
 
 /**
- * ****COMPLETAR*****
+* Función que chequea, letra por letra, si las mismas corresponden a un valor alfabético. Devuelve valor booleano.
  */
 function esPalabra($cadena)
 {
@@ -149,19 +149,16 @@ function esPalabra($cadena)
 }
 
 /**
- *  ****COMPLETAR*****
+ * Esta función solicita al usuario una palabra, la convierte en mayúsculas 
+ * y verifica que sea del valor y longitud solicitados (Alfabéticos y 5 caracteres, respectivamente).
  */
-function leerPalabra5Letras()
-{
+function leerPalabra5Letras() {
     //string $palabra
+    do {
     echo "Ingrese una palabra de 5 letras: ";
-    $palabra = trim(fgets(STDIN));
-    $palabra  = strtoupper($palabra);
-
-    while ((strlen($palabra) != 5) || !esPalabra($palabra)) {
-        echo "Debe ingresar una palabra de 5 letras:";
-        $palabra = strtoupper(trim(fgets(STDIN)));
+    $palabra = strtoupper(trim(fgets(STDIN)));
     }
+    while ((strlen($palabra) != 5) || !esPalabra($palabra));
     return $palabra;
 }
 
@@ -341,7 +338,7 @@ function obtenerPuntajeWordix()  /* ****COMPLETAR***** parámetros formales nece
  * Dada una palabra para adivinar, juega una partida de wordix intentando que el usuario adivine la palabra.
  * @param string $palabraWordix
  * @param string $nombreUsuario
- * @return array estructura con el resumen de la partida, para poder ser utilizada en estadísticas.
+ * @return array $partida - estructura con el resumen de la partida, para poder ser utilizada en estadísticas.
  */
 function jugarWordix($palabraWordix, $nombreUsuario)
 {
@@ -351,7 +348,6 @@ function jugarWordix($palabraWordix, $nombreUsuario)
     escribirMensajeBienvenida($nombreUsuario);
     $nroIntento = 1;
     do {
-
         echo "Comenzar con el Intento " . $nroIntento . ":\n";
         $palabraIntento = leerPalabra5Letras();
         $indiceIntento = $nroIntento - 1;
