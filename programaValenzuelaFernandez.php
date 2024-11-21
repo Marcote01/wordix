@@ -128,8 +128,9 @@ do {
             break;
     }
         if(($opcion<=3) && ($opcion >=1 )){
-            function cargarColeccionPartidas($palabraWordix,$usuario, )   
-        }
+           // Arreglo contenedor predefinido
+        agregarPartida(&$coleccion, $palabra, $jugador, $intentos, $puntaje);}
+  
 
 } while ($opcion != 8);
 

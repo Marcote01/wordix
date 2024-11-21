@@ -402,3 +402,28 @@ function jugarWordix($palabraWordix, $nombreUsuario)
 
     return $partida;
 }
+
+
+
+
+
+
+
+//***** funciones creadas ****
+
+
+// Función para agregar arreglos al array contenedor de partidas $coleccionPartidas
+function agregarPartida(&$coleccion, $palabra, $jugador, $intentos, $puntaje) {
+    $coleccion[] = [
+        "palabraWordix" => $palabra,
+        "jugador" => $jugador,
+        "intentos" => $intentos,
+        "puntaje" => $puntaje
+    ];
+}
+
+// Agregar partidas ejemplo
+/*
+agregarPartida($coleccion, "SUECO", "kleiton", 0, 0);
+agregarPartida($coleccion, "YUYOS", "briba", 1, 3);
+agregarPartida($coleccion, "TINTO", "zrack", 4, 8);*/
