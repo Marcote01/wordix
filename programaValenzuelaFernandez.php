@@ -1,13 +1,13 @@
 <?php
 include_once("wordix.php");
 
-/**************************************/
-/***** DATOS DE LOS INTEGRANTES *******/
-/**************************************/
-
-/* Valenzuela, Alexis. FAI 5560. TUDW. alexis.valenzuela@est.fi.uncoma.edu.ar . alevalenzuelahk */
-/* Fernandez Marcos. FAI 5620. marcosfer1323@gmail.com . Marcote01 */
-/* ****COMPLETAR***** */
+                                    /***** INTEGRANTES *******/
+/* 
+ -- Apellido y nombre --      -- Legajo --   -- Carrera --              -- Correo --                -- Usuario de Github --     
+    
+    Valenzuela, Alexis.         FAI 5560.        TUDW        alexis.valenzuela@est.fi.uncoma.edu.ar     /alevalenzuelahk
+    Fernández Marcos.           FAI 5620.        TUDW        marcosfer1323@gmail.com                    /Marcote01
+*/
 
 
 /**************************************/
@@ -15,7 +15,7 @@ include_once("wordix.php");
 /**************************************/
 
 /**
- * Obtiene una colección de palabras
+ * Obtiene una colección de palabras, siendo ésta una estructura de 20 palabras.
  * @return array
  */
 function cargarColeccionPalabras()
