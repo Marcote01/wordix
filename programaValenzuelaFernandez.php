@@ -34,17 +34,21 @@ function cargarColeccionPalabras()
  * Obtiene la coleccion de partidas
  * @return array
  */
-function cargarColeccionPartidas($palabraWordix, $usuario, $intentos)
-{
-    $coleccionPartidas = [
-        ["palabraWordix "=> "" , "jugador" => "", "intentos"=> 0, “puntaje” =>0],
+function cargarColeccionPartidas()
 
-     
+{   //inicializacion de array 
+    $coleccionPartidas=[];
+
+    //
+
+    $pa1 = ["palabraWordix" => "SUECO", "jugador" => "kleiton", "intentos" => 0, "puntaje" => 0];
+    array_push($coleccionPartidas,);
+
+
     ];
 
     return ($coleccionPartidas);
 }
-
 
 /* ****COMPLETAR***** */
 
@@ -64,8 +68,10 @@ function cargarColeccionPartidas($palabraWordix, $usuario, $intentos)
 //Proceso:
 /* echo"Ingrese su nombre: ";
   $usuario=trim(fgets(STDIN));
-  escribirMensajeBienvenida($usuario)
   $partida = jugarWordix("MELON", strtolower("MaJo"));
+
+
+  
   print_r($partida);
   imprimirResultado($partida); 
  */
@@ -120,7 +126,7 @@ do {
     }
         if(($opcion<=3) && ($opcion >=1 )){
             function cargarColeccionPartidas($palabraWordix,$usuario, )   
-        };
+        }
 
 } while ($opcion != 8);
 
