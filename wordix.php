@@ -55,7 +55,7 @@ function solicitarNumeroEntre($min, $max)
 
    
 
-    if (is_numeric($numero)) { //determina si un string es un número. puede ser float como entero.
+   // if (is_numeric($numero)) { //determina si un string es un número. puede ser float como entero.
         $numero  = $numero * 1; //con esta operación convierto el string en número.
     }
     while (!(is_numeric($numero) && (($numero == (int)$numero) && ($numero >= $min && $numero <= $max)))) {

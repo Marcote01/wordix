@@ -30,6 +30,22 @@ function cargarColeccionPalabras()
     return ($coleccionPalabras);
 }
 
+/**
+ * Obtiene la coleccion de partidas
+ * @return array
+ */
+function cargarColeccionPartidas($palabraWordix, $usuario, $intentos)
+{
+    $coleccionPartidas = [
+        ["palabraWordix "=> "" , "jugador" => "", "intentos"=> 0, “puntaje” =>0],
+
+     
+    ];
+
+    return ($coleccionPartidas);
+}
+
+
 /* ****COMPLETAR***** */
 
 
@@ -65,7 +81,7 @@ do {
             $nombreUsuarioJugando = trim(fgets(STDIN));
             esPalabra($palabraWordix);
             jugarWordix($palabraWordix, $nombreUsuarioJugando);
-
+            
             break;
         case 2: 
             //completar qué secuencia de pasos ejecutar si el usuario elige la opción 2
@@ -102,6 +118,10 @@ do {
             //echo"SALIDA";
             break;
     }
+        if(($opcion<=3) && ($opcion >=1 )){
+            function cargarColeccionPartidas($palabraWordix,$usuario, )   
+        };
+
 } while ($opcion != 8);
 
 
