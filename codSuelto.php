@@ -50,7 +50,7 @@ function mostrarPartida($nro, $coleccionPartidas)
 
 
 
-//Una función que dada una colección de pardas y el nombre de un jugador, retorne el índice de la primer
+//Una función que dada una colección de partidas y el nombre de un jugador, retorne el índice de la primer
 //partida ganada por dicho jugador.
 // ** Estructura asociativa, almacena el resumen de un jugador que tendrá los siguientes datos: 
 // ** jugador, partidas, puntaje, victorias, intento1, intento2, intento3, intento4, intento5, intento6. **
@@ -65,6 +65,12 @@ function resumenJugador($coleccionPartidas, $nombreJugador){
 }
 
 function primerPartidaGanada($coleccionPartidas, $nombreJugador){
-    for 
+    $partidaGanada= false;
+    $i=0;
+    $n=count($coleccionPartidas);
+    while($i<$n && $partidaGanada=false) {
+        if($coleccionPalabras[])
+
+    }
 }
 ?>
