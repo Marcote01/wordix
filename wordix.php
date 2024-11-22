@@ -424,20 +424,3 @@ agregarPartida($coleccion, "SUECO", "kleiton", 0, 0);
 agregarPartida($coleccion, "YUYOS", "briba", 1, 3);
 agregarPartida($coleccion, "TINTO", "zrack", 4, 8);*/
 
-
-
-function mostrarPartida($partida){
-    //@var int nroPartida
-
-    echo "ingrese el numero de partida que quiere visualizar: ";
-    $nroPartida= trim(fgets(STDIN));
-
-    echo" partida Wordix ". $nroPartida. " palabra: ".$palabra."\n".
-    "jugador: ". $jugador."\n". 
-    "puntaje: ". $puntaje. " puntos\n";
-    if ($ganado== true){
-        echo"adivino la palabra en ".$nroIntento."intentos";
-    }else{
-        echo "no adivino la palabra.";
-    }
-}
