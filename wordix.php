@@ -400,11 +400,6 @@ function jugarWordix($palabraWordix, $nombreUsuario)
 }
 
 
-
-
-
-
-
 //***** funciones creadas ****
 
 
