@@ -28,7 +28,7 @@ const ESTADO_LETRA_PERTENECE = "pertenece";
 /* Funcion que invoca el menu de opciones*/ 
  //return int $opcion
 
-function seleccionarOpcion(){
+function menuDeOpciones(){
     do{
     echo "Seleccioná el número que desees: \n
     1) Jugá al wordix con una palabra a elegir por vos! \n
@@ -45,19 +45,6 @@ function seleccionarOpcion(){
     return $opcion;
 }
 
-/**
- * Esta función solicita al usuario una palabra, la convierte en mayúsculas 
- * y verifica que sea del valor y longitud solicitados (Alfabéticos y 5 caracteres, respectivamente).
- */
-function leerPalabra5Letras() {
-    //string $palabra
-    do {
-    echo "Ingrese una palabra de 5 letras: ";
-    $palabra = strtoupper(trim(fgets(STDIN)));
-    }
-    while ((strlen($palabra) != 5) || !esPalabra($palabra));
-    return $palabra;
-}
 
 /**
  *  ****COMPLETAR*****
@@ -181,7 +168,19 @@ function esPalabra($cadena)
     return $esLetra;
 }
 
-
+/**
+ * Esta función solicita al usuario una palabra, la convierte en mayúsculas 
+ * y verifica que sea del valor y longitud solicitados (Alfabéticos y 5 caracteres, respectivamente).
+ */
+function leerPalabra5Letras() {
+    //string $palabra
+    do {
+    echo "Ingrese una palabra de 5 letras: ";
+    $palabra = strtoupper(trim(fgets(STDIN)));
+    }
+    while ((strlen($palabra) != 5) || !esPalabra($palabra));
+    return $palabra;
+}
 
 
 /**
