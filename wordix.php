@@ -470,3 +470,4 @@ function agregarPalabra($coleccionPalabras, $palabraParaAgregar)
 agregarPartida($coleccion, "SUECO", "kleiton", 0, 0);
 agregarPartida($coleccion, "YUYOS", "briba", 1, 3);
 agregarPartida($coleccion, "TINTO", "zrack", 4, 8);*/
+
