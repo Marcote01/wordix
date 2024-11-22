@@ -44,4 +44,16 @@ function mostrarPartida($nro, $coleccionPartidas)
     }
 }
 
+
+
+
+
+
+//Una función que dada una colección de pardas y el nombre de un jugador, retorne el índice de la primer
+//partida ganada por dicho jugador
+
+
+function primerPartidaGanada($coleccionPartidas, $nombreJugador){
+    for 
+}
 ?>
