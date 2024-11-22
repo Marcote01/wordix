@@ -60,24 +60,20 @@ function leerPalabra5Letras() {
 }
 
 /**
- *  ****COMPLETAR*****
+ * Esta función recibe por parámetro un numero mínimo y un número máximo. Luego, solicita la usuario un número dentro de ese rango.
+ * En caso de que el mismo no sea entero, o no se encuentre dentro del rango, le volverá a solicitar números hasta que el ingresado sea válido.
  */
-function solicitarNumeroEntre($min, $max)
-{
+function solicitarNumeroEntre($min, $max) {
     //int $numero
-
-   
-
    // if (is_numeric($numero)) { //determina si un string es un número. puede ser float como entero.
-        $numero  = $numero * 1; //con esta operación convierto el string en número.
-    }
-    while (!(is_numeric($numero) && (($numero == (int)$numero) && ($numero >= $min && $numero <= $max)))) {
-        echo "Debe ingresar un número entre " . $min . " y " . $max . ": ";
+    do {
+        echo "Debe ingresar un número ENTERO entre " . $min . " y " . $max . ": ";
         $numero = trim(fgets(STDIN));
-        if (is_numeric($numero)) {
-            $numero  = $numero * 1;
+        if (is_numeric($numero)){
+        $numero  = $numero * 1; //Convierte el string en número.
         }
     }
+    while (!(is_numeric($numero) && (($numero == (int)$numero) && ($numero >= $min && $numero <= $max))));
     return $numero;
 }
 
