@@ -44,14 +44,25 @@ function mostrarPartida($nro, $coleccionPartidas)
     }
 }
 
-
+//Una función que dada la colección de partidas y el nombre de un jugador, retorne el resumen del jugador
+//utilizando la estructura c) de la sección EXPLICACIÓN 2.
 
 
 
 
 //Una función que dada una colección de pardas y el nombre de un jugador, retorne el índice de la primer
-//partida ganada por dicho jugador
+//partida ganada por dicho jugador.
+// ** Estructura asociativa, almacena el resumen de un jugador que tendrá los siguientes datos: 
+// ** jugador, partidas, puntaje, victorias, intento1, intento2, intento3, intento4, intento5, intento6. **
 
+function resumenJugador($coleccionPartidas, $nombreJugador){
+    $totalPartidas = 0;
+    $totalPuntaje = 0;
+    $totalVictorias = 0;
+    $intentosAdivinados = [];
+    
+
+}
 
 function primerPartidaGanada($coleccionPartidas, $nombreJugador){
     for 
