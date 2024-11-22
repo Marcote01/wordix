@@ -53,7 +53,63 @@ function cargarPartidas()
     return ($coleccionPartidas);
 }
 
-/* ****COMPLETAR***** */
+/** ***COMPLETADO, falta testear***
+ * Agrega una palabra de 5 letras a la colección de palabras Wordix.
+ * @param array $coleccionPalabras
+ * @param string $palabraParaAgregar
+ * @return array Retorna colección de palabras actualizada.
+ */
+function agregarPalabra($coleccionPalabras, $palabraParaAgregar) {
+    $palabraExistente = false;
+    $i = 0;
+    $numPalabras = count($coleccionPalabras);
+
+    while ($i < $numPalabras && !$palabraExistente) {
+        if (strtoupper($coleccionPalabras[$i]) === strtoupper($palabraParaAgregar)) {
+            $palabraExistente = true;
+        }
+        $i++;
+    }
+
+    if ($palabraExistente) {
+        echo "La palabra ya se encuentra en la colección. Intente con otra palabra.\n";
+        return $coleccionPalabras;
+    }
+
+    $coleccionPalabras[] = $palabraParaAgregar;
+    echo "La palabra se ha agregado correctamente a la colección de palabras Wordix.\n";
+    return $coleccionPalabras;
+}
+
+/** ***COMPLETADO, falta testear***    
+ * Muestra los detalles de una partida específica.
+ * @param int $nro
+ * @param array $coleccionPartidas
+ */
+function agregarPalabra($coleccionPalabras, $palabraParaAgregar)
+{
+    $palabraExistente = false;
+    $i = 0;
+    $numPalabras = count($coleccionPalabras);
+
+    while ($i < $numPalabras && !$palabraExistente) {
+        if (strtoupper($coleccionPalabras[$i]) === strtoupper($palabraParaAgregar)) {
+            $palabraExistente = true;
+        }
+        $i++;
+    }
+
+    if ($palabraExistente) {
+        echo "La palabra ya se encuentra en la colección. Intente con otra palabra.\n";
+        return $coleccionPalabras;
+    }
+
+    $coleccionPalabras[] = $palabraParaAgregar;
+    echo "La palabra se ha agregado correctamente a la colección de palabras Wordix.\n";
+
+    return $coleccionPalabras;
+}
+
 
 /**************************************/
 /*********** PROGRAMA PRINCIPAL *******/
