@@ -61,7 +61,7 @@ do {
             $nombreUsuarioJugando = trim(fgets(STDIN));
         } while (((verificarSiYaJugo($nombreUsuarioJugando, $palabraWordix)) ==false));
             $partida= jugarWordix($palabraWordix, $nombreUsuarioJugando);
-            cargarPartidas($partida);
+            agregarPartida($coleccionPartidas, $partida);
 
             break;
         case 2: 

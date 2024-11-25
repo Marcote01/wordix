@@ -363,14 +363,14 @@ function jugarWordix($palabraWordix, $nombreUsuario)
 
 function verificarSiYaJugo($jugador, $indicePalabra) {
 
-    /*if ($indicePalabra < 0 || $indicePalabra >= count($palabras)) {
+    if ($indicePalabra < 0 || $indicePalabra >= count($palabras)) {
         echo "Índice de palabra no válido.\n";
         return false;  // Si el índice es invalido, retornar false
-    }*/
+    };
 
     // Obtener la palabra correspondiente al índice
     //pasa de el int del indice, al string de coleccion de partidas
-    $palabraBuscada = $palabras[$indicePalabra];
+    $palabraBuscada = $coleccionpalabras[$indicePalabra-1];
 
     // Iterar sobre las partidas para verificar si el jugador ha jugado con esa palabra
     foreach ($coleccionPartidas as $partida) {
@@ -386,9 +386,11 @@ function verificarSiYaJugo($jugador, $indicePalabra) {
 
 // Función sin retorno para agregar arreglos al array contenedor de partidas $coleccionPartidas
 //@param array $partida
-function agregarPartida($partida) {
-array_push($coleccionPartidas,$partida);
-}; 
+function agregarPartida($coleccionPartidas, $partida) {
+    $coleccionPartidas[] = $partida; // Crea una copia modificada
+    return $coleccionPartidas; // Devuelve el array actualizado
+}
+
 
 
 
@@ -431,19 +433,18 @@ function cargarPartidas(){
     //Inicializacion de array 
     $coleccionPartidas=[];
     //Partidas pre cargadas
-    $part1 = ["palabraWordix" => "MUJER", "jugador" => "luis", "intentos" => 0, "puntaje" => 0];
-    $part2 = ["palabraWordix" => "QUESO", "jugador" => "ale", "intentos" => 1, "puntaje" => 6];
-    $part3 = ["palabraWordix" => "FUEGO", "jugador" => "bimbo", "intentos" => 3, "puntaje" => 9];
-    $part4 = ["palabraWordix" => "RASGO", "jugador" => "pedro", "intentos" => 4, "puntaje" => 8];
-    $part5 = ["palabraWordix" => "CASAS", "jugador" => "karel", "intentos" => 0, "puntaje" => 0];
-    $part6 = ["palabraWordix" => "GATOS", "jugador" => "karel", "intentos" => 5, "puntaje" => 7];
-    $part7 = ["palabraWordix" => "GOTAS", "jugador" => "luis", "intentos" => 5, "puntaje" => 7];
-    $part8 = ["palabraWordix" => "HUEVO", "jugador" => "kleiton", "intentos" => 0, "puntaje" => 0];
-    $part9 = ["palabraWordix" => "FRUTO", "jugador" => "luz", "intentos" => 4, "puntaje" => 8];
-    $part10 = ["palabraWordix" => "BRUTO", "jugador" => "cabrito", "intentos" => 0, "puntaje" => 0];
-    $part11 = ["palabraWordix" => "FRUTA", "jugador" => "matias", "intentos" => 2, "puntaje" => 10];
-    $part12 = ["palabraWordix" => "TINTO", "jugador" => "matias", "intentos" => 0, "puntaje" => 0];
-    array_push($coleccionPartidas, $part1, $part2, $part3, $part4, $part5, $part6, $part7, $part8, $part9, $part10, $part11, $part12);
+    $coleccionPartidas[] = ["palabraWordix" => "MUJER", "jugador" => "luis", "intentos" => 0, "puntaje" => 0];
+    $coleccionPartidas[] = ["palabraWordix" => "QUESO", "jugador" => "ale", "intentos" => 1, "puntaje" => 6];
+    $coleccionPartidas[]= ["palabraWordix" => "FUEGO", "jugador" => "bimbo", "intentos" => 3, "puntaje" => 9];
+    $coleccionPartidas[] = ["palabraWordix" => "RASGO", "jugador" => "pedro", "intentos" => 4, "puntaje" => 8];
+    $coleccionPartidas[] = ["palabraWordix" => "CASAS", "jugador" => "karel", "intentos" => 0, "puntaje" => 0];
+    $coleccionPartidas[] = ["palabraWordix" => "GATOS", "jugador" => "karel", "intentos" => 5, "puntaje" => 7];
+    $coleccionPartidas[] = ["palabraWordix" => "GOTAS", "jugador" => "luis", "intentos" => 5, "puntaje" => 7];
+    $coleccionPartidas[] = ["palabraWordix" => "HUEVO", "jugador" => "kleiton", "intentos" => 0, "puntaje" => 0];
+    $coleccionPartidas[] = ["palabraWordix" => "FRUTO", "jugador" => "luz", "intentos" => 4, "puntaje" => 8];
+    $coleccionPartidas[] = ["palabraWordix" => "BRUTO", "jugador" => "cabrito", "intentos" => 0, "puntaje" => 0];
+    $coleccionPartidas[] = ["palabraWordix" => "FRUTA", "jugador" => "matias", "intentos" => 2, "puntaje" => 10];
+    $coleccionPartidas[] = ["palabraWordix" => "TINTO", "jugador" => "matias", "intentos" => 0, "puntaje" => 0];
     return ($coleccionPartidas);
 }   
 
@@ -468,18 +469,18 @@ válida), y retorne el número de la opción. La última opción del menú debe 
     8) Salir. \n";
 
 
-    echo "Por favor, ingrese un número del 1 al 8: ";
-    $opcion = trim(fgets(STDIN));
-        do {
-            echo "El número ingresado no es válido. Ingrese una opción **DEL 1 AL 8**: ";
-            $opcion = trim(fgets(STDIN));
-        }
-    while (!is_numeric($opcion) || $opcion < 1 || $opcion > 8);
-    return $opcion;
-}
-
-//4. Una función que le pida al usuario ingresar una palabra de 5 letras, y retorne la palabra.
-/**
+    echo "Por favor, in{grese un número del 1 al 8: ";
+    $opcion = trim(fget{s(STDIN));
+        do {{
+            echo "El nú{mero ingresado no es válido. Ingrese una opción **DEL 1 AL 8**: ";
+            $opcion = t{rim(fgets(STDIN));
+        }{
+    while (!is_numeric({$opcion) || $opcion < 1 || $opcion > 8);
+    return $opcion;{
+}{
+{
+//4. Una función que le{ pida al usuario ingresar una palabra de 5 letras, y retorne la palabra.
+/**{
  * Esta función solicita al usuario una palabra, la convierte en mayúsculas 
  * y verifica que sea del valor y longitud solicitados (Alfabéticos y 5 caracteres, respectivamente).
  *@var return string $palabra
