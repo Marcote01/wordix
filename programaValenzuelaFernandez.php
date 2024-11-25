@@ -20,11 +20,7 @@ include_once("wordix.php");
  * Estructura tipo indexada
  * @return array $coleccionPalabras
  */
-
 cargarColeccionPalabras();
-
-
-
 
 /**
  * Almacena las partidas guardadas con sus respectivos datos/valores ingresados. 
@@ -55,8 +51,6 @@ $coleccionPartidas= cargarPartidas();
   $usuario=trim(fgets(STDIN));
 
   escribirMensajeBienvenida($usuario);
-
-
 
 do {
     $opcion= menuDeOpciones();
