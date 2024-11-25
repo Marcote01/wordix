@@ -364,9 +364,9 @@ function jugarWordix($palabraWordix, $nombreUsuario)
  /***NO funciona, ya que haya declaraciones no definidas***/
 /*funcion que verifica si el número de palabra ya fue ulizada por el jugador*/
 
-/* function verificarSiYaJugo($jugador, $indicePalabra) {
+    function verificarSiYaJugo($jugador, $indicePalabra) {
 
-    if ($indicePalabra < 0 || $indicePalabra >= count($palabras)) {
+    if ($indicePalabra < 0 || $indicePalabra >= count($coleccionPalabras)) {
         echo "Índice de palabra no válido.\n";
         return false;  // Si el índice es invalido, retornar false
     };
@@ -375,6 +375,9 @@ function jugarWordix($palabraWordix, $nombreUsuario)
     //pasa de el int del indice, al string de coleccion de partidas
     $palabraBuscada = $coleccionpalabras[$indicePalabra-1];
 
+
+
+    //USAR WHILE
     // Iterar sobre las partidas para verificar si el jugador ha jugado con esa palabra
     foreach ($coleccionPartidas as $partida) {
         if ($partida['jugador'] == $jugador && $partida['palabraWordix'] == $palabraBuscada) {
@@ -385,13 +388,14 @@ function jugarWordix($palabraWordix, $nombreUsuario)
     // Si no se encuentra coincidencia, el jugador no ha jugado con esa palabra
     return true;
 }
-*/
+
 
 
 // Función sin retorno para agregar arreglos al array contenedor de partidas $coleccionPartidas
 //@param array $partida
 function agregarPartida($coleccionPartidas, $partida) {
-    $coleccionPartidas[] = $partida; // Crea una copia modificada
+    $n=count($coleccionPartidas);
+    $coleccionPartidas[$n] = $partida; // Crea una copia modificada
 }
 
 
@@ -680,13 +684,40 @@ function solicitarJugador(){
 
 /** 
  * 11- Una función sin retorno que, dada una colección de partidas, muestre la colección de partidas ordenada
-* por el nombre del jugador y por la palabra. Ulice la función predenida uasort de php y print_r.
+* por el nombre del jugador y por la palabra. Utilice la función predeterminada uasort de php y print_r.*/
 
 
-*function partidasOrdenadas($coleccionPartidas){
-*    print_r(uasort($coleccionPalabras));
-*}
-    */
+
+
+
+// Función de comparación para ordenar las partidas
+function compararPartidas($a, $b) {
+    // Primero comparar por el nombre del jugador
+    if ($a['jugador'] == $b['jugador']) {
+        // Si los jugadores son iguales, comparar por la palabra
+        if ($a['palabra'] == $b['palabra']) {
+            return 0; // Son iguales
+        }
+        return ($a['palabra'] < $b['palabra']) ? -1 : 1;
+    }
+    // Si los jugadores son diferentes, comparar por el nombre
+    return ($a['jugador'] < $b['jugador']) ? -1 : 1;
+
+// Función que ordena las partidas
+function ordenarPartidas($coleccionPartidas) {
+    // Usamos uasort y pasamos la función de comparación
+    uasort($coleccionPartidas, 'compararPartidas');
+    
+    // Mostrar la colección de partidas ordenada
+    print_r($coleccionPartidas);
+}
+
+// Llamada a la función para ordenar y mostrar las partidas
+ordenarPartidas($coleccionPartidas);
+
+
+
+    
 
 
 ?>

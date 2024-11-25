@@ -59,10 +59,10 @@ do {
             echo "Ingrese un número de palabra que no haya usado antes, y a continuación, el nombre de usuario: \n";
             $palabraWordix = trim(fgets(STDIN));
             $nombreUsuarioJugando = trim(fgets(STDIN));
-        } /** while (((verificarSiYaJugo($nombreUsuarioJugando, $palabraWordix)) ==false));
-            * $partida= jugarWordix($palabraWordix, $nombreUsuarioJugando);
-            * agregarPartida($coleccionPartidas, $partida);
-            */
+        }  while (((verificarSiYaJugo($nombreUsuarioJugando, $palabraWordix)) ==false));
+            $partida= jugarWordix($palabraWordix, $nombreUsuarioJugando);
+            agregarPartida($coleccionPartidas, $partida);
+        
             break;
         case 2: 
             //completar qué secuencia de pasos ejecutar si el usuario elige la opción 2
