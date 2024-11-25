@@ -350,7 +350,7 @@ function jugarWordix($palabraWordix, $nombreUsuario)
 }
 
 
-//***** funciones creadas ****
+//***** funciones nuevas creadas ****
 
 
 
@@ -359,9 +359,12 @@ function jugarWordix($palabraWordix, $nombreUsuario)
 
 //FUNCION FUERA DEL ENUNCIADO//
 
- /*funcion que verifica si el número de palabra ya fue ulizada por el jugador*/
 
-function verificarSiYaJugo($jugador, $indicePalabra) {
+ 
+ /***NO funciona, ya que haya declaraciones no definidas***/
+/*funcion que verifica si el número de palabra ya fue ulizada por el jugador*/
+
+/* function verificarSiYaJugo($jugador, $indicePalabra) {
 
     if ($indicePalabra < 0 || $indicePalabra >= count($palabras)) {
         echo "Índice de palabra no válido.\n";
@@ -382,13 +385,13 @@ function verificarSiYaJugo($jugador, $indicePalabra) {
     // Si no se encuentra coincidencia, el jugador no ha jugado con esa palabra
     return true;
 }
+*/
 
 
 // Función sin retorno para agregar arreglos al array contenedor de partidas $coleccionPartidas
 //@param array $partida
 function agregarPartida($coleccionPartidas, $partida) {
     $coleccionPartidas[] = $partida; // Crea una copia modificada
-    return $coleccionPartidas; // Devuelve el array actualizado
 }
 
 
@@ -516,7 +519,7 @@ function solicitarNumeroEntre($min, $max) {
     }
     return (int)$numero;
 }
-$num=solicitarNumeroEntre(1,3);
+
 
 
 /*6. Una función que dado un número de partida, muestre en pantalla los datos de la partida como lo indica la
@@ -612,19 +615,19 @@ function primerPartidaGanada($coleccionPartidas, $nombreJugador) {
 
 
 
-/*Una función que dada la colección de pardas y el nombre de un jugador, retorne el resumen del jugador
-ulizando la estructura c) de la sección EXPLICACIÓN 2. */
 
-//Una función que dada una colección de partidas y el nombre de un jugador, retorne el índice de la primer
-//partida ganada por dicho jugador.
-// ** Estructura asociativa, almacena el resumen de un jugador que tendrá los siguientes datos: 
-// ** jugador, partidas, puntaje, victorias, intento1, intento2, intento3, intento4, intento5, intento6. **
+/** Una función que dada una colección de partidas y el nombre de un jugador, retorne el índice de la primer
+ * partida ganada por dicho jugador.
+ * ulizando la estructura c) de la sección EXPLICACIÓN 2.
+ * Estructura asociativa, almacena el resumen de un jugador que tendrá los siguientes datos: 
+ * jugador, partidas, puntaje, victorias, intento1, intento2, intento3, intento4, intento5, intento6.
+*/
 
 function resumenJugador($coleccionPartidas, $nombreJugador){
         $totalPartidas = 0;
         $totalPuntaje = 0;
         $totalVictorias = 0;
-        $intentosAdivinados = [];
+        $intentosAdivinados = [];//Arreglo para contar los intentos
     
         for ($i = 0; $i <= 6; $i++) {
             $intentosAdivinados[$i] = 0;
@@ -658,5 +661,20 @@ function resumenJugador($coleccionPartidas, $nombreJugador){
         $resumenJugador['intento5'] = $intentosAdivinados[5];
         $resumenJugador['intento6'] = $intentosAdivinados[6];
     
-        return $resumenJugador;
+        return $resumenJugador; //Retorna la estructura asociativa
     }
+
+/**10. Una función solicitarJugador sin parámetros formales que solicite al usuario el nombre de un jugador y
+retorne el nombre en minúsculas. La función debe asegurar que el nombre del jugador comience con una
+letra. (Ulice funciones predenidas de string). */
+function solicitarJugador(){
+    echo "Ingrese el nombre del jugador (Si o si debe comenzar con una letra): ";
+    $nombre=trim(fgets(STDIN));
+
+    while (!(ctype_alpha($nombre[0]) && strlen($nombre)>0)){
+        echo "Ingrese un nombre válido. Debe comenzar SI O SI con una letra: ";
+        $nombre = trim(fgets(STDIN));
+    }
+    return strtolower($nombre);
+}
+
