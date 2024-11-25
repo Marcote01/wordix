@@ -678,3 +678,15 @@ function solicitarJugador(){
     return strtolower($nombre);
 }
 
+/** 
+ * 11- Una función sin retorno que, dada una colección de partidas, muestre la colección de partidas ordenada
+* por el nombre del jugador y por la palabra. Ulice la función predenida uasort de php y print_r.
+
+
+*function partidasOrdenadas($coleccionPartidas){
+*    print_r(uasort($coleccionPalabras));
+*}
+    */
+
+
+?>
