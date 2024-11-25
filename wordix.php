@@ -25,44 +25,8 @@ const ESTADO_LETRA_PERTENECE = "pertenece";
 /**************************************/
 /***** DEFINICION DE FUNCIONES ********/
 /**************************************/
-/* Funcion que invoca el menu de opciones*/ 
- //return int $opcion
-
-function menuDeOpciones(){
-    do{
-    echo "Seleccioná el número que desees: \n
-    1) Jugá al wordix con una palabra a elegir por vos! \n
-    2) Jugá al wordix con una palabra aleatoria! \n
-    3) Visualizá datos de una partida anterior: \n
-    4) Visualizá la primera victoria del jugador que quieras: \n
-    5) Visualizá las estadísticas de un jugador: \n
-    6) Visualizá listado de partidas ordenadas alfabéticamente por jugador y por palabra: \n
-    7) Agregá tu palabra de 5 letras al juego Wordix: \n
-    8) Salir. \n";
-    $opcion = trim(fgets(STDIN));
-    } while($opcion > 8 && $opcion<1);
-
-    return $opcion;
-}
 
 
-/**
- * Esta función recibe por parámetro un numero mínimo y un número máximo. Luego, solicita la usuario un número dentro de ese rango.
- * En caso de que el mismo no sea entero, o no se encuentre dentro del rango, le volverá a solicitar números hasta que el ingresado sea válido.
- */
-function solicitarNumeroEntre($min, $max) {
-    //int $numero
-   // if (is_numeric($numero)) { //determina si un string es un número. puede ser float como entero.
-    do {
-        echo "Debe ingresar un número ENTERO entre " . $min . " y " . $max . ": ";
-        $numero = trim(fgets(STDIN));
-        if (is_numeric($numero)){
-        $numero  = $numero * 1; //Convierte el string en número.
-        }
-    }
-    while (!(is_numeric($numero) && (($numero == (int)$numero) && ($numero >= $min && $numero <= $max))));
-    return $numero;
-}
 
 /**
  * Escrbir un texto en color ROJO
@@ -136,7 +100,8 @@ function escribirSegunEstado($texto, $estado)
 }
 
 /**
- * ****COMPLETAR*****
+ * funcion que segun el nombre de usuario iniciado, le da un mensaje de bienvenida al mencionado
+ * @param var $usuario
  */
 function escribirMensajeBienvenida($usuario)
 {
@@ -163,21 +128,6 @@ function esPalabra($cadena)
     }
     return $esLetra;
 }
-
-/**
- * Esta función solicita al usuario una palabra, la convierte en mayúsculas 
- * y verifica que sea del valor y longitud solicitados (Alfabéticos y 5 caracteres, respectivamente).
- */
-function leerPalabra5Letras() {
-    //string $palabra
-    do {
-    echo "Ingrese una palabra de 5 letras: ";
-    $palabra = strtoupper(trim(fgets(STDIN)));
-    }
-    while ((strlen($palabra) != 5) || !esPalabra($palabra));
-    return $palabra;
-}
-
 
 /**
  * Inicia una estructura de datos Teclado. La estructura es de tipo: ¿Indexado, asociativo o Multidimensional?
@@ -403,19 +353,185 @@ function jugarWordix($palabraWordix, $nombreUsuario)
 //***** funciones creadas ****
 
 
-// Función para agregar arreglos al array contenedor de partidas $coleccionPartidas
-function agregarPartida(&$coleccion, $palabra, $jugador, $intentos, $puntaje) {
-    $coleccion[] = [
-        "palabraWordix" => $palabra,
-        "jugador" => $jugador,
-        "intentos" => $intentos,
-        "puntaje" => $puntaje
-    ];
+
+
+//*****DEJAR*****//
+
+//FUNCION FUERA DEL ENUNCIADO//
+
+ /*funcion que verifica si el número de palabra ya fue ulizada por el jugador*/
+
+function verificarSiYaJugo($jugador, $indicePalabra) {
+
+    /*if ($indicePalabra < 0 || $indicePalabra >= count($palabras)) {
+        echo "Índice de palabra no válido.\n";
+        return false;  // Si el índice es invalido, retornar false
+    }*/
+
+    // Obtener la palabra correspondiente al índice
+    //pasa de el int del indice, al string de coleccion de partidas
+    $palabraBuscada = $palabras[$indicePalabra];
+
+    // Iterar sobre las partidas para verificar si el jugador ha jugado con esa palabra
+    foreach ($coleccionPartidas as $partida) {
+        if ($partida['jugador'] == $jugador && $partida['palabraWordix'] == $palabraBuscada) {
+            return false; 
+        }
+    }
+
+    // Si no se encuentra coincidencia, el jugador no ha jugado con esa palabra
+    return true;
 }
-/*
-Función que muestra los datos de la partida según el número ingresado por el usuario.
-*/
-function mostrarPartida($nro, $coleccionPartidas)
+
+
+// Función sin retorno para agregar arreglos al array contenedor de partidas $coleccionPartidas
+//@param array $partida
+function agregarPartida($partida) {
+array_push($coleccionPartidas,$partida);
+}; 
+
+
+
+
+//ORDENAMIENTO DE FUNCIONES SEGUN ENUNCIADO:
+
+
+/* 1- Una función llamada cargarColeccionPalabras, que inicialice una estructura de datos con ejemplos de
+Palabras de 5 letras en mayúsculas y que retorne la colección de palabras descripta en la sección
+EXPLICACION 2. Mínimo debe cargar 15 palabras.*/
+
+/**
+ * Almacena y carga al programa el listado de palabras que se usaran para jugar 
+ * Estructura tipo indexada
+ * @return array $coleccionPalabras
+ */
+
+
+function cargarColeccionPalabras() {
+    $coleccionPalabras = [
+        "MUJER", "QUESO", "FUEGO", "CASAS", "RASGO",
+        "GATOS", "GOTAS", "HUEVO", "TINTO", "NAVES",
+        "VERDE", "MELON", "YUYOS", "PIANO", "PISOS",
+        "BRUTO", "FRUTA", "TRUCO", "FRUTO", "LASTRE"
+    ];
+    return ($coleccionPalabras);
+}
+
+
+/* 2- Una función llamada cargarPartidas, que inicialice una estructura de datos con ejemplos de Partidas y que
+retorne la colección de partidas descripta en la sección EXPLICACION 2. Mínimo debe cargar 10 partidas
+donde vayan variando los jugadores, las palabras, los intentos y los puntajes, en algunos casos los
+jugadores se deben repertir*/
+
+/**
+ * Almacena las partidas guardadas con sus respectivos datos/valores ingresados. 
+ * Desde $part1 hasta $part12 se encuentran datos de partidas pre cargadas.
+ * Estructura tipo asociativa.
+ * @return array $coleccionPartidas
+ */
+function cargarPartidas()
+{   //inicializacion de array 
+    $coleccionPartidas=[];
+    $part1 = ["palabraWordix" => "MUJER", "jugador" => "luis", "intentos" => 0, "puntaje" => 0];
+    $part2 = ["palabraWordix" => "QUESO", "jugador" => "ale", "intentos" => 1, "puntaje" => 6];
+    $part3 = ["palabraWordix" => "FUEGO", "jugador" => "bimbo", "intentos" => 3, "puntaje" => 9];
+    $part4 = ["palabraWordix" => "RASGO", "jugador" => "pedro", "intentos" => 4, "puntaje" => 8];
+    $part5 = ["palabraWordix" => "CASAS", "jugador" => "karel", "intentos" => 0, "puntaje" => 0];
+    $part6 = ["palabraWordix" => "GATOS", "jugador" => "karel", "intentos" => 5, "puntaje" => 7];
+    $part7 = ["palabraWordix" => "GOTAS", "jugador" => "luis", "intentos" => 5, "puntaje" => 7];
+    $part8 = ["palabraWordix" => "HUEVO", "jugador" => "kleiton", "intentos" => 0, "puntaje" => 0];
+    $part9 = ["palabraWordix" => "FRUTO", "jugador" => "luz", "intentos" => 4, "puntaje" => 8];
+    $part10 = ["palabraWordix" => "BRUTO", "jugador" => "cabrito", "intentos" => 0, "puntaje" => 0];
+    $part11 = ["palabraWordix" => "FRUTA", "jugador" => "matias", "intentos" => 2, "puntaje" => 10];
+    $part12 = ["palabraWordix" => "TINTO", "jugador" => "matias", "intentos" => 0, "puntaje" => 0];
+    array_push($coleccionPartidas, $part1, $part2, $part3, $part4, $part5, $part6, $part7, $part8, $part9, $part10, $part11, $part12);
+    return ($coleccionPartidas);
+}   
+
+
+
+
+
+/* 3-  Para visualizar el menú de opciones (que siempre es el mismo), una función seleccionarOpcion que
+muestre las opciones del menú en la pantalla (ver sección EXPLICACION 1), le solicite al usuario una
+opción válida (si la opción no es válida vuelva a solicitarla en la misma función hasta que la opción sea
+válida), y retorne el número de la opción. La última opción del menú debe ser “Salir”.
+ */
+
+/* Funcion que invoca el menu de opciones*/ 
+ //return int $opcion
+
+ function menuDeOpciones(){
+    do{
+    echo "Seleccioná el número que desees: \n
+    1) Jugá al wordix con una palabra a elegir por vos! \n
+    2) Jugá al wordix con una palabra aleatoria! \n
+    3) Visualizá datos de una partida anterior: \n
+    4) Visualizá la primera victoria del jugador que quieras: \n
+    5) Visualizá las estadísticas de un jugador: \n
+    6) Visualizá listado de partidas ordenadas alfabéticamente por jugador y por palabra: \n
+    7) Agregá tu palabra de 5 letras al juego Wordix: \n
+    8) Salir. \n";
+    $opcion = trim(fgets(STDIN));
+    } while($opcion > 8 && $opcion<1);
+
+    return $opcion;
+}
+
+//4. Una función que le pida al usuario ingresar una palabra de 5 letras, y retorne la palabra.
+
+/**
+ * Esta función solicita al usuario una palabra, la convierte en mayúsculas 
+ * y verifica que sea del valor y longitud solicitados (Alfabéticos y 5 caracteres, respectivamente).
+ *@var return string $palabra
+ */
+function leerPalabra5Letras() {
+    //string $palabra
+    do {
+    echo "Ingrese una palabra de 5 letras: ";
+    $palabra = strtoupper(trim(fgets(STDIN)));
+    }
+    while ((strlen($palabra) != 5) || !esPalabra($palabra));
+    return $palabra;
+}
+
+
+
+
+
+//5-  Una función que solicite al usuario un número entre un rango de valores. Si el número ingresado por el
+//usuario no es válido, la función se encarga de volver a pedirlo. La función retorna un número válido.
+
+/**
+ * Esta función recibe por parámetro un numero mínimo y un número máximo. Luego, solicita la usuario un número dentro de ese rango.
+ * En caso de que el mismo no sea entero, o no se encuentre dentro del rango, le volverá a solicitar números hasta que el ingresado sea válido.
+ */
+function solicitarNumeroEntre($min, $max) {
+    //int $numero
+   // if (is_numeric($numero)) { //determina si un string es un número. puede ser float como entero.
+    do {
+        echo "Debe ingresar un número ENTERO entre " . $min . " y " . $max . ": ";
+        $numero = trim(fgets(STDIN));
+        if (is_numeric($numero)){
+        $numero  = $numero * 1; //Convierte el string en número.
+        }
+    }
+    while (!(is_numeric($numero) && (($numero == (int)$numero) && ($numero >= $min && $numero <= $max))));
+    return $numero;
+}
+
+
+
+/*6. Una función que dado un número de partida, muestre en pantalla los datos de la partida como lo indica la
+sección EXPLICACIÓN 1.
+ */
+/** ***COMPLETADO, falta testear***    
+ * Muestra los detalles de una partida específica.
+ * @param int $nro
+ * @param array $coleccionPartidas
+ */
+
+ function mostrarPartida($nro, $coleccionPartidas)
 {
     $indice = $nro - 1;
     $partida = $coleccionPartidas[$indice];
@@ -436,7 +552,18 @@ function mostrarPartida($nro, $coleccionPartidas)
     }
 }
 
-/*Función que agrega palabras
+
+
+/*7. Una función agregarPalabra cuya entrada sea la colección de palabras y una palabra, y la función retorna
+la colección modificada al agregarse la nueva palabra.
+
+ * Agrega una palabra de 5 letras a la colección de palabras Wordix.
+ * @param array $coleccionPalabras
+ * @param string $palabraParaAgregar
+ * @return array Retorna colección de palabras actualizada.
+ */
+
+
 function agregarPalabra($coleccionPalabras, $palabraParaAgregar)
 {
     $palabraExistente = false;
@@ -460,13 +587,39 @@ function agregarPalabra($coleccionPalabras, $palabraParaAgregar)
 
     return $coleccionPalabras;
 }
-// Agregar partidas ejemplo
+
+
+
+
 /*
-agregarPartida($coleccion, "SUECO", "kleiton", 0, 0);
-agregarPartida($coleccion, "YUYOS", "briba", 1, 3);
-agregarPartida($coleccion, "TINTO", "zrack", 4, 8);*/
+8. Una función que dada una colección de pardas y el nombre de un jugador, retorne el índice de la primer
+parda ganada por dicho jugador. Si el jugador ganó ninguna parda, la función debe retornar el valor -1.
+(debe ulizar las instrucciones vistas en la materia, no utiizar funciones predenidas de php).*/
+
+function primerPartidaGanada($coleccionPartidas, $nombreJugador){
+    $partidaGanada= false;
+    $i=0;
+    $n=count($coleccionPartidas);
+    while($i<$n && $partidaGanada=false) {
+        if($coleccionPalabras[])
+
+    }
+}
 
 
+
+/*Una función que dada la colección de pardas y el nombre de un jugador, retorne el resumen del jugador
+ulizando la estructura c) de la sección EXPLICACIÓN 2. */
+
+//Una función que dada una colección de partidas y el nombre de un jugador, retorne el índice de la primer
+//partida ganada por dicho jugador.
+// ** Estructura asociativa, almacena el resumen de un jugador que tendrá los siguientes datos: 
+// ** jugador, partidas, puntaje, victorias, intento1, intento2, intento3, intento4, intento5, intento6. **
+
+function resumenJugador($coleccionPartidas, $nombreJugador){
+    $primerPartidaGanada=;
+    
+    };
 
 
 
