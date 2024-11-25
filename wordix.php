@@ -470,15 +470,15 @@ válida), y retorne el número de la opción. La última opción del menú debe 
 
 
     echo "Por favor, in{grese un número del 1 al 8: ";
-    $opcion = trim(fget{s(STDIN));
-        do {{
+    $opcion = trim(fgets(STDIN));
+        do {
             echo "El nú{mero ingresado no es válido. Ingrese una opción **DEL 1 AL 8**: ";
-            $opcion = t{rim(fgets(STDIN));
-        }{
-    while (!is_numeric({$opcion) || $opcion < 1 || $opcion > 8);
-    return $opcion;{
-}{
-{
+            $opcion = trim(fgets(STDIN));
+        }
+    while (!is_numeric($opcion) || $opcion < 1 || $opcion > 8);
+    return $opcion;
+    }
+
 //4. Una función que le{ pida al usuario ingresar una palabra de 5 letras, y retorne la palabra.
 /**{
  * Esta función solicita al usuario una palabra, la convierte en mayúsculas 
