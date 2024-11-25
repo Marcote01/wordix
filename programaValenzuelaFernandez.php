@@ -37,8 +37,6 @@ $coleccionPartidas= cargarPartidas();
 //Declaración de variables:
 //@var string:
 //$usuario
-
-
 //@var int: 
 //$opcion
 
@@ -49,14 +47,12 @@ $coleccionPartidas= cargarPartidas();
 //Proceso:
  echo"Ingrese su nombre: ";
   $usuario=trim(fgets(STDIN));
-
   escribirMensajeBienvenida($usuario);
 
 do {
-    $opcion= menuDeOpciones();
-    switch ($opcion) {
+    $opcion= seleccionarOpcion(); //Modificado en wordix. Chequea que sea del 1 al 8.
+        switch ($opcion) {
         case 1: 
-
             /*se inicia la partida de wordix solicitando el nombre del
             jugador y un número de palabra para jugar.*/
             do{
@@ -67,9 +63,6 @@ do {
             $partida= jugarWordix($palabraWordix, $nombreUsuarioJugando);
             cargarPartidas($partida);
 
-
-
-            
             break;
         case 2: 
             //completar qué secuencia de pasos ejecutar si el usuario elige la opción 2
@@ -108,7 +101,7 @@ do {
     }
         if(($opcion<=3) && ($opcion >=1 )){
            // Arreglo contenedor predefinido
-        agregarPartida(&$coleccion, $palabra, $jugador, $intentos, $puntaje);}
+        agregarPartida($coleccion, $palabra, $jugador, $intentos, $puntaje);}
   
 
 } while ($opcion != 8);
