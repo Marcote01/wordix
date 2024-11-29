@@ -28,6 +28,8 @@ const ESTADO_LETRA_PERTENECE = "pertenece";
 
 
 
+
+
 /**
  * Escrbir un texto en color ROJO
  * @param string $texto)
@@ -364,13 +366,13 @@ function jugarWordix($palabraWordix, $nombreUsuario)
  /***NO funciona, ya que haya declaraciones no definidas***/
 /*funcion que verifica si el número de palabra ya fue ulizada por el jugador*/
 
-    function verificarSiYaJugo($jugador, $indicePalabra) {
+    function verificarSiExiste($jugador, $indicePalabra) {
 
     if ($indicePalabra < 0 || $indicePalabra >= count($coleccionPalabras)) {
         echo "Índice de palabra no válido.\n";
         return false;  // Si el índice es invalido, retornar false
     };
-
+}
     // Obtener la palabra correspondiente al índice
     //pasa de el int del indice, al string de coleccion de partidas
     $palabraBuscada = $coleccionpalabras[$indicePalabra-1];
@@ -379,17 +381,30 @@ function jugarWordix($palabraWordix, $nombreUsuario)
 
     //USAR WHILE
     // Iterar sobre las partidas para verificar si el jugador ha jugado con esa palabra
-    foreach ($coleccionPartidas as $partida) {
-        if ($partida['jugador'] == $jugador && $partida['palabraWordix'] == $palabraBuscada) {
-            return false; 
+
+    function verificarSiYaJugo($jugador, $palabra, $coleccionPartidas) {
+        $i = 0;
+        $encontrado = false;
+    
+        while ($i < count($coleccionPartidas) && $encontrado == false) {
+            $partida = $coleccionPartidas[$i];
+    
+            if ($partida['jugador'] == $jugador && $partida['palabraWordix'] == $palabra) {
+                $encontrado = true; 
+            }
+    
+            $i++;  
         }
+    
+        // Si se encuentra la palabra se retorna false
+        if ($encontrado) {
+            return false;
+        }
+    
+        // Si no se encuentra, se retorna true
+        return true;
     }
-
-    // Si no se encuentra coincidencia, el jugador no ha jugado con esa palabra
-    return true;
-}
-
-
+    
 
 // Función sin retorno para agregar arreglos al array contenedor de partidas $coleccionPartidas
 //@param array $partida
@@ -414,6 +429,7 @@ EXPLICACION 2. Mínimo debe cargar 15 palabras.*/
  * Estructura tipo indexada
  * @return array $coleccionPalabras
  */
+
 function cargarColeccionPalabras() {
     $coleccionPalabras = [
         "MUJER", "QUESO", "FUEGO", "CASAS", "RASGO",
@@ -423,8 +439,7 @@ function cargarColeccionPalabras() {
     ];
     return ($coleccionPalabras);
 }
-
-
+ 
 /* 2- Una función llamada cargarPartidas, que inicialice una estructura de datos con ejemplos de Partidas y que
 retorne la colección de partidas descripta en la sección EXPLICACION 2. Mínimo debe cargar 10 partidas
 donde vayan variando los jugadores, las palabras, los intentos y los puntajes, en algunos casos los
@@ -454,7 +469,6 @@ function cargarPartidas(){
     $coleccionPartidas[] = ["palabraWordix" => "TINTO", "jugador" => "matias", "intentos" => 0, "puntaje" => 0];
     return ($coleccionPartidas);
 }   
-
 /* 3-  Para visualizar el menú de opciones (que siempre es el mismo), una función seleccionarOpcion que
 muestre las opciones del menú en la pantalla (ver sección EXPLICACION 1), le solicite al usuario una
 opción válida (si la opción no es válida vuelva a solicitarla en la misma función hasta que la opción sea
@@ -688,8 +702,6 @@ function solicitarJugador(){
 
 
 
-
-
 // Función de comparación para ordenar las partidas
 function compararPartidas($a, $b) {
     // Primero comparar por el nombre del jugador
@@ -701,7 +713,7 @@ function compararPartidas($a, $b) {
         return ($a['palabra'] < $b['palabra']) ? -1 : 1;
     }
     // Si los jugadores son diferentes, comparar por el nombre
-    return ($a['jugador'] < $b['jugador']) ? -1 : 1;
+    return ($a['jugador'] < $b['jugador']) ? -1 : 1;}
 
 // Función que ordena las partidas
 function ordenarPartidas($coleccionPartidas) {
@@ -713,6 +725,7 @@ function ordenarPartidas($coleccionPartidas) {
 }
 
 // Llamada a la función para ordenar y mostrar las partidas
+//esto va en el codigo principal.
 ordenarPartidas($coleccionPartidas);
 
 

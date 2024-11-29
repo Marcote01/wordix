@@ -59,8 +59,11 @@ do {
             echo "Ingrese un número de palabra que no haya usado antes, y a continuación, el nombre de usuario: \n";
             $palabraWordix = trim(fgets(STDIN));
             $nombreUsuarioJugando = trim(fgets(STDIN));
-        }  while (((verificarSiYaJugo($nombreUsuarioJugando, $palabraWordix)) ==false));
-            $partida= jugarWordix($palabraWordix, $nombreUsuarioJugando);
+        }  while (verificarSiExiste($coleccionPalabras) == false
+         || ((verificarSiYaJugo($nombreUsuarioJugando, $palabraWordix, $coleccionPartidas)) ==false));
+           
+         
+         $partida= jugarWordix($palabraWordix, $nombreUsuarioJugando);
             agregarPartida($coleccionPartidas, $partida);
         
             break;
