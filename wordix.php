@@ -363,10 +363,12 @@ function jugarWordix($palabraWordix, $nombreUsuario)
 
 
  
- /***NO funciona, ya que haya declaraciones no definidas***/
-/*funcion que verifica si el número de palabra ya fue ulizada por el jugador*/
+ 
+/*funcion que verifica si el numero que eligio el usuario corresponde a una palabra existente
+en el arreglo que colecciona palabras*/
 
-    function verificarSiExiste($jugador, $indicePalabra) {
+//
+    function verificarSiExistePalabra($indicePalabra, $coleccionPalabras) {
 
     if ($indicePalabra < 0 || $indicePalabra >= count($coleccionPalabras)) {
         echo "Índice de palabra no válido.\n";
@@ -377,10 +379,70 @@ function jugarWordix($palabraWordix, $nombreUsuario)
     //pasa de el int del indice, al string de coleccion de partidas
     $palabraBuscada = $coleccionpalabras[$indicePalabra-1];
 
+    /*funcion que verifica si el numero que eligio el usuario corresponde a una palabra existente
+en el arreglo que colecciona palabras*/
 
 
-    //USAR WHILE
+
+
+//funcion que verifica que exista el nro de partida.
+/*@param int $nroPartida
+         array $coleccionPartida
+         
+    @var int $i
+    @var boolean $existe*/
+
+
+function verificarSiExistePartida($nroPartida, $coleccionPartidas) {
+    $i = 0;
+    $existe = false;
+
+    while ($i < count($coleccionPartidas) && $existe== false) {
+    if ($i === $nroPartida){
+        $existe=true;
+        return true ;
+    }
+    $i++;  
+    return false; 
+    }
+    
+}
+
+
+//verifica si un jugador existe dentro de la coleccion partidas
+
+
+function verificarSiExisteJugador($jugador, $coleccionPartidas) {
+    $i = 0;
+    $encontrado = false;
+    while ($i < count($coleccionPartidas) && !$encontrado) {
+        if ($jugador === $coleccionPartidas[$i]['jugador']) {
+            $encontrado = true;
+            return true;     
+        }
+        $i++; 
+    }
+    return false;
+}
+
+
+    // Obtener la palabra correspondiente al índice
+    //pasa de el int del indice, al string de coleccion de partidas
+    $palabraBuscada = $coleccionpalabras[$indicePalabra-1];
+
+
+
+    
     // Iterar sobre las partidas para verificar si el jugador ha jugado con esa palabra
+    //recorrido parcial
+
+    //funcion que verifica si el usuario ya jugo anteriormente con la palabra que eligió
+
+    /*
+    @var int $i
+    @var boolean $encontrado 
+    
+    @param $jugador, $palabra, $coleccionPalabra*/
 
     function verificarSiYaJugo($jugador, $palabra, $coleccionPartidas) {
         $i = 0;
@@ -620,7 +682,7 @@ function primerPartidaGanada($coleccionPartidas, $nombreJugador) {
         if ($coleccionPartidas[$i]['jugador'] === $nombreJugador && $coleccionPartidas[$i]['puntaje'] > 0) {
             $partidaGanada = true;
         } else {
-            $i++; //prox indice
+            $i++; 
         }
     }
 

@@ -20,7 +20,7 @@ include_once("wordix.php");
  * Estructura tipo indexada
  * @return array $coleccionPalabras
  */
-cargarColeccionPalabras();
+$coleccionPalabras= cargarColeccionPalabras();
 
 /**
  * Almacena las partidas guardadas con sus respectivos datos/valores ingresados. 
@@ -59,34 +59,71 @@ do {
             echo "Ingrese un número de palabra que no haya usado antes, y a continuación, el nombre de usuario: \n";
             $palabraWordix = trim(fgets(STDIN));
             $nombreUsuarioJugando = trim(fgets(STDIN));
-        }  while (verificarSiExiste($coleccionPalabras) == false
+        }  while (verificarSiExistePalabra($palabraWordix, $coleccionPalabras) == false
          || ((verificarSiYaJugo($nombreUsuarioJugando, $palabraWordix, $coleccionPartidas)) ==false));
            
-         
+         //almacena los resultados de la partida en la variable $partida
          $partida= jugarWordix($palabraWordix, $nombreUsuarioJugando);
+
+         //almacena la partida, dentro de la coleccion de partidas
             agregarPartida($coleccionPartidas, $partida);
         
             break;
         case 2: 
-            //completar qué secuencia de pasos ejecutar si el usuario elige la opción 2
-            /*  
-            $palabraWordix= coleccionPalabras[rand(int)]
             
             echo "Ingrese su nombre de usuario: \n";
-            $nombreUsuarioJugando = trim(fgets(STDIN)); 
+            $nombreUsuarioJugando = trim(fgets(STDIN));
+            do{
+            $indiceAleatorio = rand(0, count($coleccionPalabras) - 1);
+            $palabraWordix = $coleccionPalabras[$indiceAleatorio];
+            }
+            while(verificarSiYaJugo($nombreUsuarioJugando,$indiceAleatorio,$coleccionPartidas)==false);
+
+            $partida=jugarWordix($indiceAleatorio, $nombreUsuarioJugando);
+            agregarPartida($coleccionPartidas, $partida);
             
-            jugarWordix($nombreUsuarioJugando, )
-            */
             break;
         case 3: 
-            //completar qué secuencia de pasos ejecutar si el usuario elige la opción 3
-            break;
-        case 4: 
-            //completar qué secuencia de pasos ejecutar si el usuario elige la opción 4
+            /*Se le solicita al usuario un número de partida y se muestra en pantalla co
+            siguiente formato:
+            Partida WORDIX <numero>: palabra <palabr
+            Jugador: <nombre>
+            Puntaje: <puntaje> puntos
+            Intento: No adivinó la palabra | Adivinó la palabra en <X> intentos
+            */
+            
 
+            //@var int $nroPartida
+            do{
+            echo"Por favor, ingrese un numero de partida, entre 0 y ".(count($coleccionPartidas)-1).".";
+            $nroPartida= trim(fgets(STDIN));}
+            while(verificarSiExistePartida($nroPartida,$coleccionPartidas)==false);
+            mostrarPartida($nroPartida, $coleccionPartidas);
             break;
+
+        case 4: 
+            /*Se le solicita al usuario un nombre de jugador y se muestra 
+            pantalla el primer juego ganado por dicho jugador */
+            echo "Ingrese el nombre de usuario del cual desea ver la primer partida ganada: \n";
+            $nombreJugador= trim(fgets(STDIN));
+            $resultado= primerPartidaGanada($coleccionPartidas,$nombreJugador);
+            if($resultado==$i){
+                mostrarPartida($resultado,$coleccionPartidas);
+                
+            }else{
+                echo"el usuario no ha ganado ninguna partida :c ";;
+            };
+            break;
+
         case 5: 
-            //completar qué secuencia de pasos ejecutar si el usuario elige la opción 5
+            /* Se le solicita al usuario que ingrese un nombre de jugador y se muestre
+            las estadisticas:*/
+            do{ echo "Ingrese el nombre de usuario del cual desea ver las estadisticas, asegurese que dicho jugador haya jugado anteriormente: \n";
+            $nombreJugador= trim(fgets(STDIN))}
+            while(verificarSiExisteJugador($nombreJugador, $coleccionPartidas)==false);
+            $estadisticas=resumenJugador($coleccionPartidas, $nombreJugador);
+            print_r($estadisticas);
+
             break;
 
         case 6: 
