@@ -363,7 +363,7 @@ function jugarWordix($palabraWordix, $nombreUsuario)
 
 
  
- 
+verificarSies
 /*funcion que verifica si el numero que eligio el usuario corresponde a una palabra existente
 en el arreglo que colecciona palabras*/
 
@@ -611,26 +611,29 @@ sección EXPLICACIÓN 1.
  * @param array $coleccionPartidas
  */
 
- function mostrarPartida($nro, $coleccionPartidas) //A la hora de llamar la funcion, falta verificar que $nro sea valido.
-{
-    $indice = $nro - 1;
-    $partida = $coleccionPartidas[$indice];
-
-    echo "\n******************************************************";
-    echo "\nPartida WORDIX $nro: palabra {$partida['palabraWordix']}\n";
-    echo "Jugador: {$partida['jugador']}\n";
-    echo "Puntaje: {$partida['puntaje']} puntos\n";
-
-    $intentos = $partida['intentos'];
-
-    if ($intentos != 0) {
-        echo "Intento: Adivinó la palabra en $intentos intento(s).\n";
-        echo "******************************************************\n";
-    } else {
-        echo "Intento: No adivinó la palabra.\n";
-        echo "******************************************************\n";
-    }
-}
+ function mostrarPartida($nro, $coleccionPartidas)
+ {
+     if ($nro >= 0 && $nro < count($coleccionPartidas)) {
+         $partida = $coleccionPartidas[$nro];
+ 
+         echo "\n******************************************************";
+         echo "\nPartida WORDIX " . ($nro + 1) . ": palabra {$partida['palabraWordix']}\n";
+         echo "Jugador: {$partida['jugador']}\n";
+         echo "Puntaje: {$partida['puntaje']} puntos\n";
+ 
+         $intentos = $partida['intentos'];
+  
+         if ($intentos != 0) {
+             echo "Intento: Adivinó la palabra en $intentos intento(s).\n";
+         } else {
+             echo "Intento: No adivinó la palabra.\n";
+         }
+         echo "******************************************************\n";
+     } else {
+         echo "El número de partida es inválido.\n";
+     }
+ }
+ 
 
 
 

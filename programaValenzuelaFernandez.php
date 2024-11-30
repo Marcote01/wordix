@@ -51,7 +51,7 @@ $coleccionPartidas= cargarPartidas();
 
 do {
     $opcion= seleccionarOpcion(); //Modificado en wordix. Chequea que sea del 1 al 8.
-        switch ($opcion) {
+    switch ($opcion) {
         case 1: 
             /*se inicia la partida de wordix solicitando el nombre del
             jugador y un número de palabra para jugar.*/
@@ -94,40 +94,67 @@ do {
             
 
             //@var int $nroPartida
-            do{
-            echo"Por favor, ingrese un numero de partida, entre 0 y ".(count($coleccionPartidas)-1).".";
-            $nroPartida= trim(fgets(STDIN));}
-            while(verificarSiExistePartida($nroPartida,$coleccionPartidas)==false);
-            mostrarPartida($nroPartida, $coleccionPartidas);
-            break;
+            do {
+                echo "Por favor, ingrese un número de partida existente, entre 0 y " . (count($coleccionPartidas) - 1) . ": ";
+                $nroPartida = trim(fgets(STDIN));
+            
+                if (is_numeric($nroPartida)) {
+                    $nroPartida = (int)$nroPartida;
+                } else {
+                    $nroPartida = null;
+                }
+            
+            } while (
+                $nroPartida === null || 
+                $nroPartida < 0 || 
+                $nroPartida > count($coleccionPartidas) - 1 || 
+                !verificarSiExistePartida($nroPartida, $coleccionPartidas) 
+            );
 
-        case 4: 
-            /*Se le solicita al usuario un nombre de jugador y se muestra 
-            pantalla el primer juego ganado por dicho jugador */
-            echo "Ingrese el nombre de usuario del cual desea ver la primer partida ganada: \n";
-            $nombreJugador= trim(fgets(STDIN));
-            $resultado= primerPartidaGanada($coleccionPartidas,$nombreJugador);
-            if($resultado==$i){
-                mostrarPartida($resultado,$coleccionPartidas);
-                
-            }else{
-                echo"el usuario no ha ganado ninguna partida :c ";;
-            };
-            break;
+        case 4:
+                echo "Ingrese el nombre de usuario del cual desea ver la primera partida ganada: \n";
+                $nombreJugador = trim(fgets(STDIN));
+                $resultado = primerPartidaGanada($coleccionPartidas, $nombreJugador);
+
+                // Verifica si se encontró una partida ganada
+                if ($resultado !== null) {
+                    // Muestra la partida ganada, si se encontro alguna partida ganada
+                    mostrarPartida($resultado, $coleccionPartidas);
+                } else {
+                    // Muestra este mensaje si no tiene partidas ganadas
+                    echo "El usuario no ha ganado aún ninguna partida :c\n";
+                }
+                break;
 
         case 5: 
             /* Se le solicita al usuario que ingrese un nombre de jugador y se muestre
             las estadisticas:*/
             do{ echo "Ingrese el nombre de usuario del cual desea ver las estadisticas, asegurese que dicho jugador haya jugado anteriormente: \n";
-            $nombreJugador= trim(fgets(STDIN))}
-            while(verificarSiExisteJugador($nombreJugador, $coleccionPartidas)==false);
+            $nombreJugador= trim(fgets(STDIN));
+            } while(verificarSiExisteJugador($nombreJugador, $coleccionPartidas)==false);
             $estadisticas=resumenJugador($coleccionPartidas, $nombreJugador);
-            print_r($estadisticas);
+            echo "********************************************************\n" .
+            "Jugador: " . $resumenJugador['jugador'] . "\n" .
+            "Partidas: " . $resumenJugador['partidas'] . "\n" .
+            "Puntaje Total: " . $resumenJugador['puntaje'] . "\n" .
+            "Victorias: " . $resumenJugador['victorias'] . "\n" .
+            "Intento 1: " . $resumenJugador['intento1'] . "\n" .
+            "Intento 2: " . $resumenJugador['intento2'] . "\n" .
+            "Intento 3: " . $resumenJugador['intento3'] . "\n" .
+            "Intento 4: " . $resumenJugador['intento4'] . "\n" .
+            "Intento 5: " . $resumenJugador['intento5'] . "\n" .
+            "Intento 6: " . $resumenJugador['intento6'] . "\n" .
+            "********************************************************\n";
 
             break;
 
         case 6: 
-            //completar qué secuencia de pasos ejecutar si el usuario elige la opción 6
+            /* Se mostrará en pantalla la estructu
+ordenada alfabéticamente por jugador y por palabra , utilizando la función predefinida uasort d
+y la función predefinida print_r. (En el código fuente documentar qué hace cada una de est
+funciones predefinidas de php, utilizar el manual php.net). (Este es el único menú de opciones
+debe utilizar la función print_r parar mostrar la estructura de dato
+ */
 
             break;
         case 7: 
