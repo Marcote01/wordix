@@ -149,6 +149,8 @@ do {
             break;
 
         case 6: 
+            ordenarPartidas($coleccionPartidas);
+
             /* Se mostrará en pantalla la estructu
 ordenada alfabéticamente por jugador y por palabra , utilizando la función predefinida uasort d
 y la función predefinida print_r. (En el código fuente documentar qué hace cada una de est
@@ -159,11 +161,15 @@ debe utilizar la función print_r parar mostrar la estructura de dato
             break;
         case 7: 
             //completar qué secuencia de pasos ejecutar si el usuario elige la opción 7
+            do{echo"ingrese una palabra de 5 letras para agregarla al sistema: ";
+            $palabraParaAgregar=trim(fgets(STDIN));}
+            while($palabraParaAgregar);
+
+            agregarPalabra($coleccionPalabras, $palabraParaAgregar);
 
             break;
         case 8: 
-            //completar qué secuencia de pasos ejecutar si el usuario elige la opción 8
-            //echo"SALIDA";
+           echo"gracias por jugar en wordix!! lo esperamos pronto!";
             break;
     }
         if(($opcion<=3) && ($opcion >=1 )){

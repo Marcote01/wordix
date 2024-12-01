@@ -363,7 +363,7 @@ function jugarWordix($palabraWordix, $nombreUsuario)
 
 
  
-verificarSies
+
 /*funcion que verifica si el numero que eligio el usuario corresponde a una palabra existente
 en el arreglo que colecciona palabras*/
 
