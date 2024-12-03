@@ -9,13 +9,10 @@ include_once("wordix.php");
     Fernández Marcos.           FAI 5620.        TUDW        marcosfer1323@gmail.com                    /Marcote01
 */
 
-
 /**************************************/
 /***** DEFINICION DE FUNCIONES ********/
 /**************************************/
-
 /**
- ***
  * Almacena y carga al programa el listado de palabras que se usaran para jugar 
  * Estructura tipo indexada
  * @return array $coleccionPalabras
@@ -34,15 +31,14 @@ $coleccionPartidas= cargarPartidas();
 /*********** PROGRAMA PRINCIPAL *******/
 /**************************************/
 
-//Declaración de variables:
-//@var string:
-//$usuario
-//@var int: 
-//$opcion
+/**
+ * Declaración de variables: 
+ * @var string $usuario
+ * @var int $opcion
+ */
 
 
 //Inicialización de variables:
-
 
 //Proceso:
  echo"Ingrese su nombre: ";
@@ -55,17 +51,17 @@ do {
         case 1: 
             /*se inicia la partida de wordix solicitando el nombre del
             jugador y un número de palabra para jugar.*/
-            do{
-            echo "Ingrese un número de palabra que no haya usado antes, y a continuación, el nombre de usuario: \n";
-            $palabraWordix = trim(fgets(STDIN));
-            $nombreUsuarioJugando = trim(fgets(STDIN));
-        }  while (verificarSiExistePalabra($palabraWordix, $coleccionPalabras) == false
-         || ((verificarSiYaJugo($nombreUsuarioJugando, $palabraWordix, $coleccionPartidas)) ==false));
+            do {
+                echo "Ingrese un número de palabra que no haya usado antes, y a continuación, el nombre de usuario: \n";
+                $palabraWordix = trim(fgets(STDIN));
+                $nombreUsuarioJugando = trim(fgets(STDIN));
+            }   
+            while (verificarSiExistePalabra($palabraWordix, $coleccionPalabras) == false || ((verificarSiYaJugo($nombreUsuarioJugando, $palabraWordix, $coleccionPartidas)) ==false));
            
-         //almacena los resultados de la partida en la variable $partida
-         $partida= jugarWordix($palabraWordix, $nombreUsuarioJugando);
+            //almacena los resultados de la partida en la variable $partida
+            $partida= jugarWordix($palabraWordix, $nombreUsuarioJugando);
 
-         //almacena la partida, dentro de la coleccion de partidas
+            //almacena la partida, dentro de la coleccion de partidas
             agregarPartida($coleccionPartidas, $partida);
         
             break;
@@ -84,16 +80,10 @@ do {
             
             break;
         case 3: 
-            /*Se le solicita al usuario un número de partida y se muestra en pantalla co
-            siguiente formato:
-            Partida WORDIX <numero>: palabra <palabr
-            Jugador: <nombre>
-            Puntaje: <puntaje> puntos
-            Intento: No adivinó la palabra | Adivinó la palabra en <X> intentos
-            */
-            
-
-            //@var int $nroPartida
+            //Se le solicita al usuario un número de partida y se muestra en pantalla
+            /*
+            *
+            *@var int $nroPartida*/
             do {
                 echo "Por favor, ingrese un número de partida existente, entre 0 y " . (count($coleccionPartidas) - 1) . ": ";
                 $nroPartida = trim(fgets(STDIN));
