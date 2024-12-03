@@ -758,26 +758,33 @@ function solicitarJugador(){
     return strtolower($nombre);
 }
 
+
 /** 
  * 11- Una función sin retorno que, dada una colección de partidas, muestre la colección de partidas ordenada
 * por el nombre del jugador y por la palabra. Utilice la función predeterminada uasort de php y print_r.*/
 
-
-
-// Función de comparación para ordenar las partidas
+// Función de comparación para ordenar las partidas. Usa return debido al UASORT.
 function compararPartidas($a, $b) {
-    // Primero comparar por el nombre del jugador
+    $verif = 0; // Inicializamos la variable que determinará el orden
+
+    // Comparar por el nombre del jugador
     if ($a['jugador'] == $b['jugador']) {
         // Si los jugadores son iguales, comparar por la palabra
         if ($a['palabra'] == $b['palabra']) {
-            return 0; // Son iguales
+            $verif = 0; // Son iguales
+        } else {
+            $verif = ($a['palabra'] < $b['palabra']) ? -1 : 1;
         }
-        return ($a['palabra'] < $b['palabra']) ? -1 : 1;
+    } else {
+        // Si los jugadores son diferentes, ordenar por el nombre del jugador
+        $verif = ($a['jugador'] < $b['jugador']) ? -1 : 1;
     }
-    // Si los jugadores son diferentes, comparar por el nombre
-    return ($a['jugador'] < $b['jugador']) ? -1 : 1;}
 
-// Función que ordena las partidas
+    return $verif; // Devolver el resultado de la comparación
+}
+
+
+// Función que ordena las partidas, SIN retorno.
 function ordenarPartidas($coleccionPartidas) {
     // Usamos uasort y pasamos la función de comparación
     uasort($coleccionPartidas, 'compararPartidas');
@@ -785,14 +792,5 @@ function ordenarPartidas($coleccionPartidas) {
     // Mostrar la colección de partidas ordenada
     print_r($coleccionPartidas);
 }
-
-// Llamada a la función para ordenar y mostrar las partidas
-//esto va en el codigo principal.
-ordenarPartidas($coleccionPartidas);
-
-
-
-    
-
 
 ?>

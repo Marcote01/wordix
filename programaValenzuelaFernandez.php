@@ -50,7 +50,7 @@ $coleccionPartidas= cargarPartidas();
   escribirMensajeBienvenida($usuario);
 
 do {
-    $opcion= seleccionarOpcion(); //Modificado en wordix. Chequea que sea del 1 al 8.
+    $opcion= seleccionarOpcion(); //Chequea que sea del 1 al 8.
     switch ($opcion) {
         case 1: 
             /*se inicia la partida de wordix solicitando el nombre del
@@ -60,7 +60,7 @@ do {
             $palabraWordix = trim(fgets(STDIN));
             $nombreUsuarioJugando = trim(fgets(STDIN));
         }  while (verificarSiExistePalabra($palabraWordix, $coleccionPalabras) == false
-         || ((verificarSiYaJugo($nombreUsuarioJugando, $palabraWordix, $coleccionPartidas)) ==true));
+         || ((verificarSiYaJugo($nombreUsuarioJugando, $palabraWordix, $coleccionPartidas)) ==false));
            
          //almacena los resultados de la partida en la variable $partida
          $partida= jugarWordix($palabraWordix, $nombreUsuarioJugando);
@@ -69,8 +69,8 @@ do {
             agregarPartida($coleccionPartidas, $partida);
         
             break;
-        case 2:     
-            //
+        case 2: 
+            
             echo "Ingrese su nombre de usuario: \n";
             $nombreUsuarioJugando = trim(fgets(STDIN));
             do{
@@ -84,7 +84,16 @@ do {
             
             break;
         case 3: 
-            //Se le solicita al usuario un número de partida y se muestra en pantalla
+            /*Se le solicita al usuario un número de partida y se muestra en pantalla co
+            siguiente formato:
+            Partida WORDIX <numero>: palabra <palabr
+            Jugador: <nombre>
+            Puntaje: <puntaje> puntos
+            Intento: No adivinó la palabra | Adivinó la palabra en <X> intentos
+            */
+            
+
+            //@var int $nroPartida
             do {
                 echo "Por favor, ingrese un número de partida existente, entre 0 y " . (count($coleccionPartidas) - 1) . ": ";
                 $nroPartida = trim(fgets(STDIN));
@@ -101,9 +110,6 @@ do {
                 $nroPartida > count($coleccionPartidas) - 1 || 
                 !verificarSiExistePartida($nroPartida, $coleccionPartidas) 
             );
-            mostrarPartida($nroPartida, $coleccionPartidas);
-
-
 
         case 4:
                 echo "Ingrese el nombre de usuario del cual desea ver la primera partida ganada: \n";
@@ -143,32 +149,20 @@ do {
             break;
 
         case 6: 
+            // Se mostrará en pantalla la estructura ordenada alfabéticamente por jugador y por palabra
+
+            // Llamada a la función para ordenar y mostrar las partidas
             ordenarPartidas($coleccionPartidas);
-
-            /* Se mostrará en pantalla la estructu
-ordenada alfabéticamente por jugador y por palabra , utilizando la función predefinida uasort d
-y la función predefinida print_r. (En el código fuente documentar qué hace cada una de est
-funciones predefinidas de php, utilizar el manual php.net). (Este es el único menú de opciones
-debe utilizar la función print_r parar mostrar la estructura de dato
- */
-
             break;
         case 7: 
-            //completar qué secuencia de pasos ejecutar si el usuario elige la opción 7
-            do{echo"ingrese una palabra de 5 letras para agregarla al sistema: ";
-            $palabraParaAgregar=trim(fgets(STDIN));}
-            while($palabraParaAgregar);
-
+            //Solicita palabra de 5 letras al usuario. La agrega en MAYUS a la colección de palabras
+            
+            $palabraParaAgregar=leerPalabra5Letras();
             agregarPalabra($coleccionPalabras, $palabraParaAgregar);
-
             break;
         case 8: 
-           echo"gracias por jugar en wordix!! lo esperamos pronto!";
+           echo"Gracias por jugar en wordix!! lo esperamos pronto!";
             break;
-    }
-        if(($opcion<=3) && ($opcion >=1 )){
-           // Arreglo contenedor predefinido
-        agregarPartida($coleccion, $palabra, $jugador, $intentos, $puntaje);}
-  
+    } 
 
 } while ($opcion != 8);
