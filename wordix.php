@@ -400,12 +400,11 @@ function verificarSiExistePartida($nroPartida, $coleccionPartidas) {
     while ($i < count($coleccionPartidas) && $existe== false) {
     if ($i === $nroPartida){
         $existe=true;
-        return true ;
     }
     $i++;  
-    return false; 
-    }
     
+    }
+    return $existe; 
 }
 
 
@@ -417,12 +416,11 @@ function verificarSiExisteJugador($jugador, $coleccionPartidas) {
     $encontrado = false;
     while ($i < count($coleccionPartidas) && !$encontrado) {
         if ($jugador === $coleccionPartidas[$i]['jugador']) {
-            $encontrado = true;
-            return true;     
+            $encontrado = true; 
         }
         $i++; 
     }
-    return false;
+    return $encontrado;
 }
 
 
@@ -458,21 +456,19 @@ function verificarSiExisteJugador($jugador, $coleccionPartidas) {
             $i++;  
         }
     
-        // Si se encuentra la palabra se retorna false
-        if ($encontrado) {
-            return false;
-        }
-    
-        // Si no se encuentra, se retorna true
-        return true;
+        // Si se encuentra la palabra se retorna true
+      
+            return $encontrado;
+
     }
     
 
 // Función sin retorno para agregar arreglos al array contenedor de partidas $coleccionPartidas
 //@param array $partida
+//@var int $n
 function agregarPartida($coleccionPartidas, $partida) {
     $n=count($coleccionPartidas);
-    $coleccionPartidas[$n] = $partida; // Crea una copia modificada
+    $coleccionPartidas[$n+1] = $partida; // Crea una copia modificada
 }
 
 
@@ -677,9 +673,9 @@ parda ganada por dicho jugador. Si el jugador ganó ninguna parda, la función d
 (debe ulizar las instrucciones vistas en la materia, no utiizar funciones predenidas de php).*/
 
 function primerPartidaGanada($coleccionPartidas, $nombreJugador) {
-    $partidaGanada = false; // Bandera para indicar si se encontró una partida ganada
+    $partidaGanada = false; 
     $i = 0;
-    $n = count($coleccionPartidas); // total de partidas
+    $n = count($coleccionPartidas); 
 
     while ($i < $n && !$partidaGanada) { // Recorre mientras haya partidas y no se haya encontrado una ganada
         if ($coleccionPartidas[$i]['jugador'] === $nombreJugador && $coleccionPartidas[$i]['puntaje'] > 0) {
@@ -690,10 +686,11 @@ function primerPartidaGanada($coleccionPartidas, $nombreJugador) {
     }
 
     if ($partidaGanada) {
-        return $i; // Retornar el índice de la primera partida ganada
+        $resultado=$i;
     } else {
-        return -1; // Retornar -1 si no se encontró ninguna partida ganada
+         $resultado=-1; // Retornar -1 si no se encontró ninguna partida ganada
     }
+    return $resultado;
 }
 
 

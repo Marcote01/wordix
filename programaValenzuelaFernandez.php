@@ -60,7 +60,7 @@ do {
             $palabraWordix = trim(fgets(STDIN));
             $nombreUsuarioJugando = trim(fgets(STDIN));
         }  while (verificarSiExistePalabra($palabraWordix, $coleccionPalabras) == false
-         || ((verificarSiYaJugo($nombreUsuarioJugando, $palabraWordix, $coleccionPartidas)) ==false));
+         || ((verificarSiYaJugo($nombreUsuarioJugando, $palabraWordix, $coleccionPartidas)) ==true));
            
          //almacena los resultados de la partida en la variable $partida
          $partida= jugarWordix($palabraWordix, $nombreUsuarioJugando);
@@ -69,8 +69,8 @@ do {
             agregarPartida($coleccionPartidas, $partida);
         
             break;
-        case 2: 
-            
+        case 2:     
+            //
             echo "Ingrese su nombre de usuario: \n";
             $nombreUsuarioJugando = trim(fgets(STDIN));
             do{
@@ -84,16 +84,7 @@ do {
             
             break;
         case 3: 
-            /*Se le solicita al usuario un número de partida y se muestra en pantalla co
-            siguiente formato:
-            Partida WORDIX <numero>: palabra <palabr
-            Jugador: <nombre>
-            Puntaje: <puntaje> puntos
-            Intento: No adivinó la palabra | Adivinó la palabra en <X> intentos
-            */
-            
-
-            //@var int $nroPartida
+            //Se le solicita al usuario un número de partida y se muestra en pantalla
             do {
                 echo "Por favor, ingrese un número de partida existente, entre 0 y " . (count($coleccionPartidas) - 1) . ": ";
                 $nroPartida = trim(fgets(STDIN));
@@ -110,6 +101,9 @@ do {
                 $nroPartida > count($coleccionPartidas) - 1 || 
                 !verificarSiExistePartida($nroPartida, $coleccionPartidas) 
             );
+            mostrarPartida($nroPartida, $coleccionPartidas);
+
+
 
         case 4:
                 echo "Ingrese el nombre de usuario del cual desea ver la primera partida ganada: \n";
