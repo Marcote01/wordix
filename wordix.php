@@ -293,13 +293,44 @@ function esIntentoGanado($estructuraPalabraIntento)
 }
 
 /**
- * ****COMPLETAR***** documentación de la intefaz
- */
-function obtenerPuntajeWordix()  /* ****COMPLETAR***** parámetros formales necesarios */
-{
 
-    /* ****COMPLETAR***** cuerpo de la función*/
-    return 0;
+ * Calcula el puntaje de una partida de Wordix.
+ * @var int $puntajeBase, $puntajeLetras
+ * @param int $nroIntento Número de intento en que se adivinó la palabra.
+ * @param string $palabraAdivinada Palabra adivinada por el jugador.
+ * @return int $puntajeTotal obtenido en la partida.
+ */
+function obtenerPuntajeWordix($nroIntento, $palabraAdivinada)
+{
+    if ($nroIntento > 6 || $nroIntento < 1) {
+        return 0;
+    }
+
+    $puntajeBase = 7 - $nroIntento; 
+    //inicializacion puntaje letras
+    $puntajeLetras = 0;
+
+    // Calcular puntaje para cada letra de la palabra
+    for ($i = 0; $i < strlen($palabraAdivinada); $i++) {
+        $letra = strtoupper($palabraAdivinada[$i]);
+
+        // Determinar el puntaje de la letra sin usar in_array
+        if (
+            $letra === 'A' || $letra === 'E' || $letra === 'I' || 
+            $letra === 'O' || $letra === 'U'
+        ) {
+            $puntajeLetras += 1; // Vocales valen 1 punto
+        } elseif ($letra >= 'A' && $letra <= 'M') {
+            $puntajeLetras += 2; // Consonantes de A a M valen 2 puntos
+        } else {
+            $puntajeLetras += 3; // Consonantes de N a Z valen 3 puntos
+        }
+    }
+
+    // Calcular puntaje total
+    $puntajeTotal = $puntajeBase + $puntajeLetras;
+
+    return $puntajeTotal;
 }
 
 /**
@@ -333,7 +364,7 @@ function jugarWordix($palabraWordix, $nombreUsuario)
 
     if ($ganoElIntento) {
         $nroIntento--;
-        $puntaje = obtenerPuntajeWordix();
+        $puntaje = obtenerPuntajeWordix($nroIntento, $palabraAdivinada);
         echo "Adivinó la palabra Wordix en el intento " . $nroIntento . "!: " . $palabraIntento . " Obtuvo $puntaje puntos!";
     } else {
         $nroIntento = 0; //reset intento
@@ -352,17 +383,9 @@ function jugarWordix($palabraWordix, $nombreUsuario)
 }
 
 
-//***** funciones nuevas creadas ****
-
-
-
-
-//*****DEJAR*****//
-
 //FUNCION FUERA DEL ENUNCIADO//
 
 
- 
 
 /*funcion que verifica si el numero que eligio el usuario corresponde a una palabra existente
 en el arreglo que colecciona palabras*/
