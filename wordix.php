@@ -455,11 +455,8 @@ function verificarSiExisteJugador($jugador, $coleccionPartidas) {
     
             $i++;  
         }
-    
         // Si se encuentra la palabra se retorna true
-      
-            return $encontrado;
-
+        return $encontrado;
     }
     
 

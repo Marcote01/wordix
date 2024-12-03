@@ -66,24 +66,26 @@ do {
         
             break;
         case 2: 
-            
+            /**
+             * Solicita el nombre de jugador, y permite jugar con una palabra aleatoria
+             * de las disponibles. Verifica que la misma no haya sido jugada previamente.}
+             * @var string
+             */
             echo "Ingrese su nombre de usuario: \n";
             $nombreUsuarioJugando = trim(fgets(STDIN));
             do{
-            $indiceAleatorio = rand(0, count($coleccionPalabras) - 1);
-            $palabraWordix = $coleccionPalabras[$indiceAleatorio];
+                $indiceAleatorio = rand(0, count($coleccionPalabras) - 1);
+                $palabraWordix = $coleccionPalabras[$indiceAleatorio];
             }
-            while(verificarSiYaJugo($nombreUsuarioJugando,$indiceAleatorio,$coleccionPartidas)==false);
-
+            while (verificarSiYaJugo($nombreUsuarioJugando,$indiceAleatorio,$coleccionPartidas)/* ==false */);
             $partida=jugarWordix($indiceAleatorio, $nombreUsuarioJugando);
             agregarPartida($coleccionPartidas, $partida);
-            
             break;
         case 3: 
-            //Se le solicita al usuario un número de partida y se muestra en pantalla
-            /*
-            *
-            *@var int $nroPartida*/
+            /**
+             * Se le solicita al usuario un número de partida y se muestra en pantalla
+             * @var int $nroPartida 
+             */
             do {
                 echo "Por favor, ingrese un número de partida existente, entre 0 y " . (count($coleccionPartidas) - 1) . ": ";
                 $nroPartida = trim(fgets(STDIN));
@@ -94,21 +96,23 @@ do {
                     $nroPartida = null;
                 }
             
-            } while (
-                $nroPartida === null || 
+            } while ( $nroPartida === null || 
                 $nroPartida < 0 || 
                 $nroPartida > count($coleccionPartidas) - 1 || 
                 !verificarSiExistePartida($nroPartida, $coleccionPartidas) 
             );
 
         case 4:
+            /**
+             * Solicita un nombre de jugador. Muestra la primera partida ganadora del mismo.
+             */
                 echo "Ingrese el nombre de usuario del cual desea ver la primera partida ganada: \n";
                 $nombreJugador = trim(fgets(STDIN));
                 $resultado = primerPartidaGanada($coleccionPartidas, $nombreJugador);
 
                 // Verifica si se encontró una partida ganada
                 if ($resultado !== null) {
-                    // Muestra la partida ganada, si se encontro alguna partida ganada
+                    // Muestra la partida ganada, si es que se encontro alguna
                     mostrarPartida($resultado, $coleccionPartidas);
                 } else {
                     // Muestra este mensaje si no tiene partidas ganadas
@@ -117,8 +121,10 @@ do {
                 break;
 
         case 5: 
-            /* Se le solicita al usuario que ingrese un nombre de jugador y se muestre
-            las estadisticas:*/
+            /**
+             *  Se le solicita al usuario que ingrese un nombre de jugador y se muestran las estadisticas:
+             *  @var string $nombreJugador
+             */
             do{ echo "Ingrese el nombre de usuario del cual desea ver las estadisticas, asegurese que dicho jugador haya jugado anteriormente: \n";
             $nombreJugador= trim(fgets(STDIN));
             } while(verificarSiExisteJugador($nombreJugador, $coleccionPartidas)==false);
@@ -135,23 +141,22 @@ do {
             "Intento 5: " . $resumenJugador['intento5'] . "\n" .
             "Intento 6: " . $resumenJugador['intento6'] . "\n" .
             "********************************************************\n";
-
             break;
-
         case 6: 
-            // Se mostrará en pantalla la estructura ordenada alfabéticamente por jugador y por palabra
-
-            // Llamada a la función para ordenar y mostrar las partidas
+            /**
+             * Se mostrará en pantalla la estructura ordenada alfabéticamente por jugador y por palabra
+             * Llama a la función para ordenar y mostrar las partidas.
+             */
             ordenarPartidas($coleccionPartidas);
             break;
         case 7: 
             //Solicita palabra de 5 letras al usuario. La agrega en MAYUS a la colección de palabras
-            
             $palabraParaAgregar=leerPalabra5Letras();
             agregarPalabra($coleccionPalabras, $palabraParaAgregar);
             break;
         case 8: 
-           echo"Gracias por jugar en wordix!! lo esperamos pronto!";
+            //Echo que recorre una sola vez, y despide al jugador del programa.
+            echo"Gracias por jugar en wordix!! lo esperamos pronto!";
             break;
     } 
 
