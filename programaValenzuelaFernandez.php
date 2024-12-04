@@ -58,7 +58,7 @@ do {
             $jugador=solicitarJugador();
             escribirMensajeBienvenida(($jugador));   
             $palabraAleatoria=elegirPalabraAleatoria($coleccionPalabras, $coleccionPartidas, $jugador);
-            if (!$palabraAleatoria){
+            if ($palabraAleatoria == -1){
                 echo"No quedan palabras disponibles para jugar. Vuelva a intentar mas tarde.";
             }
             $partida=jugarWordix($palabraAleatoria, $jugador);

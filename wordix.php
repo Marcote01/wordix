@@ -1,6 +1,5 @@
 <?php
 
-
 /***** DEFINICION DE CONSTANTES *******/
 
 const CANT_INTENTOS = 6;
@@ -115,7 +114,7 @@ function elegirPalabraAleatoria($coleccionPalabra, $coleccionPartidas, $jugador)
         $palabraSeleccionada = $palabrasDisponibles[$indiceRandom];
     }
     else {
-        $palabraSeleccionada = false;
+        $palabraSeleccionada = -1;
     }
     return $palabraSeleccionada;
 }
@@ -202,7 +201,7 @@ function imprimirIntentosWordix($estructuraIntentosWordix) {
         }
         echo "\n";
     }
-    //echo "\n" . "Le quedan " . $cantIntentosFaltantes . " Intentos para adivinar la palabra!";
+    echo "\n" . "Le quedan " . $cantIntentosFaltantes . " Intentos para adivinar la palabra!";
 }
 
 /**
