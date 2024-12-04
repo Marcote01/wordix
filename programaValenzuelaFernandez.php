@@ -139,7 +139,6 @@ do {
                 }
                 while ($visualizar != "NO");
                 break;
-
         case 5: 
             /**
              *  Se le solicita al usuario que ingrese un nombre de jugador y se muestran las estadisticas:
@@ -175,12 +174,11 @@ do {
         case 7: 
             //Solicita palabra de 5 letras al usuario. La agrega en MAYUS a la colección de palabras
             $palabraParaAgregar=leerPalabra5Letras();
-            agregarPalabra($coleccionPalabras, $palabraParaAgregar);
+            $coleccionPalabras=agregarPalabra($coleccionPalabras, $palabraParaAgregar);
             break;
         case 8: 
             //Echo que recorre una sola vez, y despide al jugador del programa.
-            echo"Gracias por jugar en WORDIX! Te esperamos pronto :)";
+            echo"Gracias por jugar en wordix! Te esperamos pronto :)";
             break;
     } 
-
 } while ($opcion != 8);

@@ -551,9 +551,7 @@ válida), y retorne el número de la opción. La última opción del menú debe 
     6) Visualizá listado de partidas ordenadas alfabéticamente por jugador y por palabra: \n
     7) Agregá tu palabra de 5 letras al juego Wordix: \n
     8) Salir. \n";
-
-
-    echo "Por favor, in{grese un número del 1 al 8: ";
+    echo "Por favor, ingrese un número del 1 al 8: ";
     $opcion = trim(fgets(STDIN));
     while (!is_numeric($opcion) || $opcion <= 1 && $opcion >= 8){
         echo "El número ingresado no es válido. Ingrese una opción **DEL 1 AL 8**: ";
@@ -667,8 +665,8 @@ function agregarPalabra($coleccionPalabras, $palabraParaAgregar)
 
     $coleccionPalabras[] = $palabraParaAgregar;
     echo "La palabra se ha agregado correctamente a la colección de palabras Wordix.\n";
-
     return $coleccionPalabras;
+    
 }
 
 /*
@@ -797,23 +795,20 @@ function solicitarJugador(){
 // Función de comparación para ordenar las partidas. Usa return debido al UASORT.
 function compararPartidas($a, $b) {
     $verif = 0; // Inicializamos la variable que determinará el orden
-
     // Comparar por el nombre del jugador
     if ($a['jugador'] == $b['jugador']) {
         // Si los jugadores son iguales, comparar por la palabra
-        if ($a['palabra'] == $b['palabra']) {
+        if ($a['palabraWordix'] == $b['palabraWordix']) {
             $verif = 0; // Son iguales
         } else {
-            $verif = ($a['palabra'] < $b['palabra']) ? -1 : 1;
+            $verif = ($a['palabraWordix'] < $b['palabraWordix']) ? -1 : 1;
         }
     } else {
         // Si los jugadores son diferentes, ordenar por el nombre del jugador
         $verif = ($a['jugador'] < $b['jugador']) ? -1 : 1;
     }
-
     return $verif; // Devolver el resultado de la comparación
 }
-
 
 // Función que ordena las partidas, SIN retorno.
 function ordenarPartidas($coleccionPartidas) {
