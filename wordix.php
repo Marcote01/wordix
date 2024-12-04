@@ -110,6 +110,38 @@ function escribirMensajeBienvenida($usuario)
 }
 
 /**
+ * Funcion que elige una palabra aleatoria de la colección de palabras, y chequea 
+ * si la misma ya fue jugada previamente por la misma persona.
+ * @param array $coleccionPalabras
+ * @param array $coleccionPartidas
+ * @param string $jugador
+ * @return string|[] //Devuelve la palabra seleccionada, o un arreglo vacío en caso de que el jugador haya utilizado todas las palabras.
+ */
+function elegirPalabraAleatoria($coleccionPalabra, $coleccionPartidas, $jugador){
+    $palabrasJugadas = [];
+    $palabrasDisponibles = [];
+
+    foreach ($coleccionPartidas as $partida){
+        if ($partida["jugador"]===$jugador){
+            $palabrasJugadas[] = $partida["palabraWordix"];
+        }
+    }
+
+    $palabrasDisponibles = array_diff($coleccionPalabra, $palabrasJugadas);
+
+    if (count($palabrasDisponibles)>0){
+        $indiceRandom = array_rand($palabrasDisponibles);
+        $palabraSeleccionada = $palabrasDisponibles[$indiceRandom];
+    }
+    else {
+        $palabraSeleccionada = false;
+    }
+    return $palabraSeleccionada;
+}
+
+
+
+/**
 * Función que chequea, letra por letra, si las mismas corresponden a un valor alfabético. Devuelve valor booleano.
  */
 function esPalabra($cadena)

@@ -69,13 +69,15 @@ do {
              * @var string
              */
             $jugador=solicitarJugador();
-            escribirMensajeBienvenida(($jugador));
+            escribirMensajeBienvenida(($jugador));   
+
+            $palabraAleatoria=elegirPalabraAleatoria($coleccionPalabras, $coleccionPartidas, $jugador);
             
-            $indiceAleatorio = rand(0, count($coleccionPalabras) - 1);
-            $palabraWordix = $coleccionPalabras[$indiceAleatorio];
+            if (!$palabraAleatoria){
+                echo"No quedan palabras disponibles para jugar. Vuelva a intentar mas tarde.";
+            }
             
-            while (verificarSiYaJugo($jugador,$indiceAleatorio,$coleccionPartidas)/* ==false */);
-            $partida=jugarWordix($indiceAleatorio, $jugador);
+            $partida=jugarWordix($palabraAleatoria, $jugador);
             $coleccionPartidas=agregarPartida($coleccionPartidas, $partida);
             break;
         case 3: 
