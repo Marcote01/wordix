@@ -622,7 +622,7 @@ sección EXPLICACIÓN 1.
          $partida = $coleccionPartidas[$nro];
  
          echo "\n******************************************************";
-         echo "\nPartida WORDIX " . ($nro + 1) . ": palabra {$partida['palabraWordix']}\n";
+         echo "\nPartida WORDIX " . ($nro) . ": palabra {$partida['palabraWordix']}\n";
          echo "Jugador: {$partida['jugador']}\n";
          echo "Puntaje: {$partida['puntaje']} puntos\n";
  

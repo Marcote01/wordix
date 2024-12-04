@@ -85,22 +85,23 @@ do {
              * Se le solicita al usuario un número de partida y se muestra en pantalla
              * @var int $nroPartida 
              */
-            do {
-                echo "Por favor, ingrese un número de partida existente, entre 0 y " . (count($coleccionPartidas) - 1) . ": ";
-                $nroPartida = trim(fgets(STDIN));
-            
-                if (is_numeric($nroPartida)) {
-                    $nroPartida = (int)$nroPartida;
-                } else {
-                    $nroPartida = null;
+                echo "Por favor, ingrese un número de partida existente, entre 1 y " . (count($coleccionPartidas) - 1) . ": ";
+                $nroPartida = trim(fgets(STDIN));            
+                mostrarPartida($nroPartida, $coleccionPartidas); 
+                do {
+                    echo"Desea visualizar otra partida? SI/NO ";
+                    $visualizar=strtoupper(trim(fgets(STDIN)));
+                    if ($visualizar == "SI"){
+                        echo "Por favor, ingrese otro número de partida existente, entre 1 y " . (count($coleccionPartidas) - 1) . ": ";
+                        $nroPartida = trim(fgets(STDIN));    
+                        mostrarPartida($nroPartida, $coleccionPartidas);
+                    }
+                    else if ($visualizar != "NO" && $visualizar !="SI"){
+                        echo "Respuesta invalida. Debe ingresar SI o NO. ";
+                    }
                 }
-            
-            } while ( $nroPartida === null || 
-                $nroPartida < 0 || 
-                $nroPartida > count($coleccionPartidas) - 1 || 
-                !verificarSiExistePartida($nroPartida, $coleccionPartidas) 
-            );
-
+                while ($visualizar != "NO");   
+                break;
         case 4:
             /**
              * Solicita un nombre de jugador. Muestra la primera partida ganadora del mismo.
