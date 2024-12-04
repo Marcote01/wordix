@@ -306,11 +306,7 @@ function obtenerPuntajeWordix($nroIntento, $palabraAdivinada) {
     for ($i = 0; $i < strlen($palabraAdivinada); $i++) {
         $letra = strtoupper($palabraAdivinada[$i]);
 
-        // Determinar el puntaje de la letra sin usar in_array
-        if (
-            $letra === 'A' || $letra === 'E' || $letra === 'I' || 
-            $letra === 'O' || $letra === 'U'
-        ) {
+        if ($letra === 'A' || $letra === 'E' || $letra === 'I' || $letra === 'O' || $letra === 'U') {
             $puntajeLetras += 1; // Vocales suman un punto
         } elseif ($letra >= 'A' && $letra <= 'M') {
             $puntajeLetras += 2; // Consonantes de A a M valen 2 puntos
@@ -384,10 +380,12 @@ function verificarSiExistePartida($nroPartida, $coleccionPartidas) {
     }
     return $existe; 
 }
-
-
-//verifica si un jugador existe dentro de la coleccion partidas
-
+/** Función que verifica si un jugador existe dentro de la coleccion partidas, mediante recorrido parcial.
+ * @var int $i
+ * @var boolean $encontrado
+ * @param string $jugador
+ * @param array $coleccionPartidas
+ */
 
 function verificarSiExisteJugador($jugador, $coleccionPartidas) {
     $i = 0;
@@ -400,15 +398,14 @@ function verificarSiExisteJugador($jugador, $coleccionPartidas) {
     }
     return $encontrado;
 }
-    /**
-     * recorrido parcial
-     * funcion que verifica si el usuario ya jugo anteriormente con la palabra que eligió
-     * @var int $i
-     * @var boolean $encontrado 
-     * @param $jugador, $palabra, $coleccionPalabra
-     */ 
+/** Funcion que verifica si el usuario ya jugo anteriormente con la palabra que eligió, mediante recorrido parcial.
+ * @var int $i
+ * @var boolean $encontrado 
+ * @param string $jugador, $palabra 
+ * @param array $coleccionPalabra
+ */ 
 
-    function verificarSiYaJugo($jugador, $palabra, $coleccionPartidas) {
+function verificarSiYaJugo($jugador, $palabra, $coleccionPartidas) {
         $i = 0;
         $encontrado = false;
     
@@ -417,27 +414,27 @@ function verificarSiExisteJugador($jugador, $coleccionPartidas) {
     
             if ($partida['jugador'] == $jugador && $partida['palabraWordix'] == $palabra) {
                 $encontrado = true; 
+                //es decir, si encuentra la palabra, retorna true.
             }
             $i++;  
         }
-        // Si se encuentra la palabra se retorna true
+        
         return $encontrado;
     }
     
 
-// Función sin retorno para agregar arreglos al array contenedor de partidas $coleccionPartidas
-//@param array $partida
-//@var int $n
+/** Función sin retorno para agregar arreglos al array contenedor de partidas $coleccionPartidas
+ * @param array $coleccionPartidas, $partida
+ * @var int $n
+ */ 
 function agregarPartida($coleccionPartidas, $partida) {
     $n=count($coleccionPartidas);
     $coleccionPartidas[$n+1] = $partida; // Crea una copia modificada
 }
 
 
-/* 1- Una función llamada cargarColeccionPalabras, que inicialice una estructura de datos con ejemplos de
-Palabras de 5 letras en mayúsculas y que retorne la colección de palabras descripta en la sección
-EXPLICACION 2. Mínimo debe cargar 15 palabras.*/
-/**
+/** 1- Una función llamada cargarColeccionPalabras, que inicialice una estructura de datos con ejemplos de
+ * Palabras de 5 letras en mayúsculas y que retorne la colección de palabras
  * Almacena y carga al programa el listado de palabras que se usaran para jugar 
  * Estructura tipo indexada
  * @return array $coleccionPalabras
