@@ -645,6 +645,8 @@ function primerPartidaGanada($coleccionPartidas, $nombreJugador) {
  * partida ganada por dicho jugador, utilizando la estructura c) de la sección EXPLICACIÓN 2.
  * Estructura asociativa, almacena el resumen de un jugador que tendrá los siguientes datos: 
  * jugador, partidas, puntaje, victorias, intento1, intento2, intento3, intento4, intento5, intento6.
+ * @param array $coleccionPartidas
+ * @param string $nombreJugador
 */
 
 function resumenJugador($coleccionPartidas, $nombreJugador){
@@ -656,24 +658,18 @@ function resumenJugador($coleccionPartidas, $nombreJugador){
         for ($i = 0; $i <= 6; $i++) {
             $intentosAdivinados[$i] = 0;
         }
-    
         foreach ($coleccionPartidas as $partida) {
-    
             if ($partida['jugador'] === $nombreJugador) {
                 $totalPartidas++;
-    
                 $totalPuntaje += $partida['puntaje'];
-    
                 if ($partida['puntaje'] > 0) {
                     $totalVictorias++;
                 }
-    
                 if ($partida['intentos'] > 0 && $partida['intentos'] <= 6) {
                     $intentosAdivinados[$partida['intentos']]++;
                 }
             }
         }
-    
         $resumenJugador['jugador'] = $nombreJugador;
         $resumenJugador['partidas'] = $totalPartidas;
         $resumenJugador['puntaje'] = $totalPuntaje;
@@ -685,7 +681,7 @@ function resumenJugador($coleccionPartidas, $nombreJugador){
         $resumenJugador['intento5'] = $intentosAdivinados[5];
         $resumenJugador['intento6'] = $intentosAdivinados[6];
     
-        return $resumenJugador; //Retorna la estructura asociativa
+        return $resumenJugador;
     }
 
     /**
@@ -712,7 +708,8 @@ function resumenJugador($coleccionPartidas, $nombreJugador){
             echo"El jugador ".$resumenJugador['jugador'].", no registra partidas guardadas. ";
         }  
 }
-    /**10. Una función solicitarJugador sin parámetros formales que solicite al usuario el nombre de un jugador y
+
+/**10. Una función solicitarJugador sin parámetros formales que solicite al usuario el nombre de un jugador y
 retorne el nombre en minúsculas. La función debe asegurar que el nombre del jugador comience con una
 letra. (Ulice funciones predenidas de string). */
 function solicitarJugador(){
@@ -726,18 +723,16 @@ function solicitarJugador(){
     return strtolower($nombre);
 }
 
-/** 
- * 11- Una función sin retorno que, dada una colección de partidas, muestre la colección de partidas ordenada
-* por el nombre del jugador y por la palabra. Utilice la función predeterminada uasort de php y print_r.*/
+
 
 // Función de comparación para ordenar las partidas. Usa return debido al UASORT.
 function compararPartidas($a, $b) {
-    $verif = 0; // Inicializamos la variable que determinará el orden
+    $verif = 0;
     // Comparar por el nombre del jugador
     if ($a['jugador'] == $b['jugador']) {
-        // Si los jugadores son iguales, comparar por la palabra
+        // Si el jugador es el mismo, comparamos por la palabra ingresada
         if ($a['palabraWordix'] == $b['palabraWordix']) {
-            $verif = 0; // Son iguales
+            $verif = 0;
         } else {
             $verif = ($a['palabraWordix'] < $b['palabraWordix']) ? -1 : 1;
         }
@@ -745,15 +740,19 @@ function compararPartidas($a, $b) {
         // Si los jugadores son diferentes, ordenar por el nombre del jugador
         $verif = ($a['jugador'] < $b['jugador']) ? -1 : 1;
     }
-    return $verif; // Devolver el resultado de la comparación
+    return $verif;
 }
 
-// Función que ordena las partidas, SIN retorno.
+/** 
+ * 11- Una función sin retorno que, dada una colección de partidas, muestre la colección de partidas ordenada
+* por el nombre del jugador y por la palabra. Utilice la función predeterminada uasort de php y print_r.
+* Función que ordena las partidas, SIN retorno, usando uasort y print_r.*/
+
 function ordenarPartidas($coleccionPartidas) {
-    // Usamos uasort y pasamos la función de comparación
+    // Usamos uasort y pasamos como parametro la coleccion de partidas. Luego, llamamos a la función de comparación.
     uasort($coleccionPartidas, 'compararPartidas');
     
-    // Mostrar la colección de partidas ordenada
+    // Mostramos la colección de partidas ordenada
     print_r($coleccionPartidas);
 }
 ?>

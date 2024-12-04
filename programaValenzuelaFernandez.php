@@ -10,13 +10,13 @@ include_once("wordix.php");
 
 
 /** Almacena y carga al programa el listado de palabras que se usaran para jugar 
- * Estructura tipo indexada
+ * Estructura tipo unidimensional
  * @return array $coleccionPalabras
  */
 $coleccionPalabras= cargarColeccionPalabras();
 
 /** Almacena las partidas guardadas con sus respectivos datos/valores ingresados. 
- * Estructura tipo asociativa.
+ * Estructura tipo asociativa. Asocia con claves a los indices.
  * @return array
  */
 $coleccionPartidas= cargarPartidas();
@@ -30,7 +30,7 @@ $coleccionPartidas= cargarPartidas();
 
 //Proceso:
 do {
-    //Chequeamos que el número ingresado sea válido.
+    
     $opcion= seleccionarOpcion(); 
     switch ($opcion) {
         case 1: 
@@ -148,8 +148,7 @@ do {
             while ($visualizar != "NO");
             break;
         case 6: 
-            /**
-             * Se mostrará en pantalla la estructura ordenada alfabéticamente por jugador y por palabra
+            /** Se mostrará en pantalla la estructura ordenada alfabéticamente por jugador y por palabra
              * Llama a la función para ordenar y mostrar las partidas.
              */
             ordenarPartidas($coleccionPartidas);
