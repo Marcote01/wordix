@@ -111,13 +111,33 @@ do {
                 $resultado = primerPartidaGanada($coleccionPartidas, $nombreJugador);
 
                 // Verifica si se encontró una partida ganada
-                if ($resultado !== null) {
+                if ($resultado != -1) {
                     // Muestra la partida ganada, si es que se encontro alguna
                     mostrarPartida($resultado, $coleccionPartidas);
                 } else {
                     // Muestra este mensaje si no tiene partidas ganadas
-                    echo "El usuario no ha ganado aún ninguna partida :c\n";
+                    echo "El usuario no ha ganado aún ninguna partida :c \n";
                 }
+                do {
+                    echo"Desea visualizar otro usuario? SI/NO ";
+                    $visualizar=strtoupper(trim(fgets(STDIN)));
+                    if ($visualizar == "SI"){
+                        echo "Ingrese el nombre de usuario del cual desea ver la primera partida ganada: \n";
+                        $nombreJugador = trim(fgets(STDIN));
+                        $resultado = primerPartidaGanada($coleccionPartidas, $nombreJugador);
+                        if ($resultado != -1) {
+                            // Muestra la partida ganada, si es que se encontro alguna
+                            mostrarPartida($resultado, $coleccionPartidas);
+                        } else {
+                            // Muestra este mensaje si no tiene partidas ganadas
+                            echo "El usuario no ha ganado aún ninguna partida :c \n";
+                        }
+                    }
+                    else if ($visualizar != "NO" && $visualizar !="SI"){
+                        echo "Respuesta invalida. Debe ingresar SI o NO. ";
+                    }
+                }
+                while ($visualizar != "NO");
                 break;
 
         case 5: 
@@ -125,9 +145,11 @@ do {
              *  Se le solicita al usuario que ingrese un nombre de jugador y se muestran las estadisticas:
              *  @var string $nombreJugador
              */
-            do{ echo "Ingrese el nombre de usuario del cual desea ver las estadisticas, asegurese que dicho jugador haya jugado anteriormente: \n";
+            do{ 
+                echo "Ingrese el nombre de usuario del cual desea ver las estadisticas, asegurese que dicho jugador haya jugado anteriormente: \n";
             $nombreJugador= trim(fgets(STDIN));
-            } while(verificarSiExisteJugador($nombreJugador, $coleccionPartidas)==false);
+            } 
+            while(verificarSiExisteJugador($nombreJugador, $coleccionPartidas)==false);
             $estadisticas=resumenJugador($coleccionPartidas, $nombreJugador);
             echo "********************************************************\n" .
             "Jugador: " . $resumenJugador['jugador'] . "\n" .

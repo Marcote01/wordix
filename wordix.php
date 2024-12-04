@@ -529,7 +529,7 @@ function cargarPartidas(){
     $coleccionPartidas[] = ["palabraWordix" => "RASGO", "jugador" => "pedro", "intentos" => 4, "puntaje" => 8];
     $coleccionPartidas[] = ["palabraWordix" => "CASAS", "jugador" => "karel", "intentos" => 0, "puntaje" => 0];
     $coleccionPartidas[] = ["palabraWordix" => "GATOS", "jugador" => "karel", "intentos" => 5, "puntaje" => 7];
-    $coleccionPartidas[] = ["palabraWordix" => "GOTAS", "jugador" => "luis", "intentos" => 5, "puntaje" => 7];
+    $coleccionPartidas[] = ["palabraWordix" => "GOTAS", "jugador" => "luis", "intentos" => 5, "puntaje" => 0];
     $coleccionPartidas[] = ["palabraWordix" => "HUEVO", "jugador" => "kleiton", "intentos" => 0, "puntaje" => 0];
     $coleccionPartidas[] = ["palabraWordix" => "FRUTO", "jugador" => "luz", "intentos" => 4, "puntaje" => 8];
     $coleccionPartidas[] = ["palabraWordix" => "BRUTO", "jugador" => "cabrito", "intentos" => 0, "puntaje" => 0];
