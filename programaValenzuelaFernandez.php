@@ -1,6 +1,5 @@
 <?php
 include_once("wordix.php");
-
                                     /***** INTEGRANTES *******/
 /* 
  -- Apellido y nombre --      -- Legajo --   -- Carrera --              -- Correo --                -- Usuario de Github --     
@@ -9,41 +8,33 @@ include_once("wordix.php");
     Fernández Marcos.           FAI 5620.        TUDW        marcosfer1323@gmail.com                    /Marcote01
 */
 
-/**************************************/
-/***** DEFINICION DE FUNCIONES ********/
-/**************************************/
-/**
- * Almacena y carga al programa el listado de palabras que se usaran para jugar 
+
+/** Almacena y carga al programa el listado de palabras que se usaran para jugar 
  * Estructura tipo indexada
  * @return array $coleccionPalabras
  */
 $coleccionPalabras= cargarColeccionPalabras();
 
-/**
- * Almacena las partidas guardadas con sus respectivos datos/valores ingresados. 
- * Desde $part1 hasta $part12 se encuentran datos de partidas pre cargadas.
+/** Almacena las partidas guardadas con sus respectivos datos/valores ingresados. 
  * Estructura tipo asociativa.
  * @return array
  */
 $coleccionPartidas= cargarPartidas();
 
-/**************************************/
-/*********** PROGRAMA PRINCIPAL *******/
-/**************************************/
 
-/**
- * Declaración de variables: 
+/******* PROGRAMA PRINCIPAL *******/
+
+/** Declaración de variables: 
  * @var string $jugador
- * @var int $opcion
- */
+ * @var int $opcion */
 
 //Proceso:
 do {
-    $opcion= seleccionarOpcion(); //Chequea que sea del 1 al 8.
+    //Chequeamos que el número ingresado sea válido.
+    $opcion= seleccionarOpcion(); 
     switch ($opcion) {
         case 1: 
-            /*se inicia la partida de wordix solicitando el nombre del
-            jugador y un número de palabra para jugar.*/
+            /*se solicita el nombre del jugador y se escribe bienvenida. Luego se juega con un número de palabra.*/
             $jugador=solicitarJugador();
             escribirMensajeBienvenida(($jugador));
             do {
@@ -55,17 +46,15 @@ do {
                 }
             }
             while (verificarSiYaJugo($jugador, $palabraWordix, $coleccionPartidas));
-            //almacena los resultados de la partida en la variable $partida
+            //Almacenamos los resultados de la partida en la variable $partida
             $partida= jugarWordix($palabraWordix, $jugador);
-            //almacena la partida, dentro de la coleccion de partidas
+            //Almacenamos la partida, dentro de la coleccion de partidas
             $coleccionPartidas=agregarPartida($coleccionPartidas, $partida);
             break;
         case 2: 
-            /**
-             * Solicita el nombre de jugador, y permite jugar con una palabra aleatoria
-             * de las disponibles. Verifica que la misma no haya sido jugada previamente.}
-             * @var string
-             */
+            /** Solicita el nombre de jugador, y permite jugar con una palabra aleatoria
+             * de las disponibles. Verifica que la misma no haya sido jugada previamente.
+             * @var string  */
             $jugador=solicitarJugador();
             escribirMensajeBienvenida(($jugador));   
             $palabraAleatoria=elegirPalabraAleatoria($coleccionPalabras, $coleccionPartidas, $jugador);
@@ -164,15 +153,38 @@ do {
              * Llama a la función para ordenar y mostrar las partidas.
              */
             ordenarPartidas($coleccionPartidas);
+            do {
+                echo"¿Desea visualizar nuevamente las partidas ordenadas? SI/NO ";
+                $visualizar=strtoupper(trim(fgets(STDIN)));
+                if ($visualizar == "SI"){
+                    ordenarPartidas($coleccionPartidas);
+                }
+                else if ($visualizar != "NO" && $visualizar !="SI"){
+                    echo "Respuesta invalida. Debe ingresar SI o NO. ";
+                }
+            }
+            while ($visualizar != "NO");
             break;
         case 7: 
             //Solicita palabra de 5 letras al usuario. La agrega en MAYUS a la colección de palabras
             $palabraParaAgregar=leerPalabra5Letras();
             $coleccionPalabras=agregarPalabra($coleccionPalabras, $palabraParaAgregar);
+            do {
+                echo"¿Desea agregar otra palabra? SI/NO ";
+                $visualizar=strtoupper(trim(fgets(STDIN)));
+                if ($visualizar == "SI"){
+                    $palabraParaAgregar=leerPalabra5Letras();
+                    $coleccionPalabras=agregarPalabra($coleccionPalabras, $palabraParaAgregar);
+                }
+                else if ($visualizar != "NO" && $visualizar !="SI"){
+                    echo "Respuesta invalida. Debe ingresar SI o NO. ";
+                }
+            }
+            while ($visualizar != "NO");
             break;
         case 8: 
             //Echo que recorre una sola vez, y despide al jugador del programa.
-            echo"Gracias por jugar en wordix! Te esperamos pronto :)";
+            echo"***¡Gracias por jugar a wordix! Te esperamos pronto :)***";
             break;
     } 
 } while ($opcion != 8);
