@@ -33,7 +33,7 @@ $coleccionPartidas= cargarPartidas();
 
 /**
  * Declaración de variables: 
- * @var string $usuario
+ * @var string $jugador
  * @var int $opcion
  */
 
@@ -55,10 +55,8 @@ do {
                 }
             }
             while (verificarSiYaJugo($jugador, $palabraWordix, $coleccionPartidas));
-            
             //almacena los resultados de la partida en la variable $partida
             $partida= jugarWordix($palabraWordix, $jugador);
-
             //almacena la partida, dentro de la coleccion de partidas
             $coleccionPartidas=agregarPartida($coleccionPartidas, $partida);
             break;
@@ -70,13 +68,10 @@ do {
              */
             $jugador=solicitarJugador();
             escribirMensajeBienvenida(($jugador));   
-
             $palabraAleatoria=elegirPalabraAleatoria($coleccionPalabras, $coleccionPartidas, $jugador);
-            
             if (!$palabraAleatoria){
                 echo"No quedan palabras disponibles para jugar. Vuelva a intentar mas tarde.";
             }
-            
             $partida=jugarWordix($palabraAleatoria, $jugador);
             $coleccionPartidas=agregarPartida($coleccionPartidas, $partida);
             break;
@@ -109,7 +104,6 @@ do {
                 echo "Ingrese el nombre de usuario del cual desea ver la primera partida ganada: \n";
                 $nombreJugador = trim(fgets(STDIN));
                 $resultado = primerPartidaGanada($coleccionPartidas, $nombreJugador);
-
                 // Verifica si se encontró una partida ganada
                 if ($resultado != -1) {
                     // Muestra la partida ganada, si es que se encontro alguna
