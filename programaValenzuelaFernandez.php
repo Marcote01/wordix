@@ -52,8 +52,9 @@ do {
             /*se inicia la partida de wordix solicitando el nombre del
             jugador y un número de palabra para jugar.*/
             do {
-                echo "Ingrese un número de palabra que no haya usado antes, y a continuación, el nombre de usuario: \n";
+                echo "Ingrese un número de palabra que no haya usado antes";
                 $palabraWordix = trim(fgets(STDIN));
+                echo "Ingrese el nombre de usuario: \n";
                 $nombreUsuarioJugando = trim(fgets(STDIN));
             }   
             while (verificarSiExistePalabra($palabraWordix, $coleccionPalabras) == false || ((verificarSiYaJugo($nombreUsuarioJugando, $palabraWordix, $coleccionPartidas)) ==false));
