@@ -526,7 +526,7 @@ válida), y retorne el número de la opción. La última opción del menú debe 
     8) Salir. \n";
 
 
-    echo "Por favor, ingrese un número del 1 al 8: ";
+    echo "Por favor, in{grese un número del 1 al 8: ";
     $opcion = trim(fgets(STDIN));
     while (!is_numeric($opcion) || $opcion <= 1 && $opcion >= 8){
         echo "El número ingresado no es válido. Ingrese una opción **DEL 1 AL 8**: ";
