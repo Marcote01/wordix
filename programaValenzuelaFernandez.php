@@ -37,33 +37,30 @@ $coleccionPartidas= cargarPartidas();
  * @var int $opcion
  */
 
-
-//Inicialización de variables:
-
 //Proceso:
- echo"Ingrese su nombre: ";
-  $usuario=trim(fgets(STDIN));
-  escribirMensajeBienvenida($usuario);
-
 do {
     $opcion= seleccionarOpcion(); //Chequea que sea del 1 al 8.
     switch ($opcion) {
         case 1: 
             /*se inicia la partida de wordix solicitando el nombre del
             jugador y un número de palabra para jugar.*/
+            $jugador=solicitarJugador();
+            escribirMensajeBienvenida(($jugador));
             do {
-                echo "Ingrese un número de palabra que no haya usado antes, y a continuación, el nombre de usuario: \n";
-                $palabraWordix = trim(fgets(STDIN));
-                $nombreUsuarioJugando = trim(fgets(STDIN));
-            }   
-            while (verificarSiExistePalabra($palabraWordix, $coleccionPalabras) == false || ((verificarSiYaJugo($nombreUsuarioJugando, $palabraWordix, $coleccionPartidas)) ==false));
-           
+                $numero = solicitarNumeroEntre(1, count($coleccionPalabras));
+                $palabraWordix = $coleccionPalabras[$numero - 1];
+                
+            if (verificarSiYaJugo($jugador, $palabraWordix, $coleccionPartidas)){
+                echo "La palabra ya fue utilizada por el jugador. Vuelva a ingresar. ";
+                }
+            }
+            while (verificarSiYaJugo($jugador, $palabraWordix, $coleccionPartidas));
+            
             //almacena los resultados de la partida en la variable $partida
-            $partida= jugarWordix($palabraWordix, $nombreUsuarioJugando);
+            $partida= jugarWordix($palabraWordix, $jugador);
 
             //almacena la partida, dentro de la coleccion de partidas
-            agregarPartida($coleccionPartidas, $partida);
-        
+            $coleccionPartidas=agregarPartida($coleccionPartidas, $partida);
             break;
         case 2: 
             /**
@@ -71,15 +68,15 @@ do {
              * de las disponibles. Verifica que la misma no haya sido jugada previamente.}
              * @var string
              */
-            echo "Ingrese su nombre de usuario: \n";
-            $nombreUsuarioJugando = trim(fgets(STDIN));
-            do{
-                $indiceAleatorio = rand(0, count($coleccionPalabras) - 1);
-                $palabraWordix = $coleccionPalabras[$indiceAleatorio];
-            }
-            while (verificarSiYaJugo($nombreUsuarioJugando,$indiceAleatorio,$coleccionPartidas)/* ==false */);
-            $partida=jugarWordix($indiceAleatorio, $nombreUsuarioJugando);
-            agregarPartida($coleccionPartidas, $partida);
+            $jugador=solicitarJugador();
+            escribirMensajeBienvenida(($jugador));
+            
+            $indiceAleatorio = rand(0, count($coleccionPalabras) - 1);
+            $palabraWordix = $coleccionPalabras[$indiceAleatorio];
+            
+            while (verificarSiYaJugo($jugador,$indiceAleatorio,$coleccionPartidas)/* ==false */);
+            $partida=jugarWordix($indiceAleatorio, $jugador);
+            $coleccionPartidas=agregarPartida($coleccionPartidas, $partida);
             break;
         case 3: 
             /**

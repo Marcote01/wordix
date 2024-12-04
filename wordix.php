@@ -1,5 +1,4 @@
 <?php
-
 /*
 La librería JugarWordix posee la definición de constantes y funciones necesarias
 para jugar al Wordix.
@@ -25,10 +24,6 @@ const ESTADO_LETRA_PERTENECE = "pertenece";
 /**************************************/
 /***** DEFINICION DE FUNCIONES ********/
 /**************************************/
-
-
-
-
 
 /**
  * Escrbir un texto en color ROJO
@@ -113,7 +108,6 @@ function escribirMensajeBienvenida($usuario)
     echo " Juguemos una PARTIDA de WORDIX! **\n";
     echo "***************************************************\n";
 }
-
 
 /**
 * Función que chequea, letra por letra, si las mismas corresponden a un valor alfabético. Devuelve valor booleano.
@@ -344,7 +338,6 @@ function jugarWordix($palabraWordix, $nombreUsuario)
     /*Inicialización*/
     $arregloDeIntentosWordix = [];
     $teclado = iniciarTeclado();
-    escribirMensajeBienvenida($nombreUsuario);
     $nroIntento = 1;
     do {
         echo "Comenzar con el Intento " . $nroIntento . ":\n";
@@ -356,16 +349,14 @@ function jugarWordix($palabraWordix, $nombreUsuario)
         imprimirIntentosWordix($arregloDeIntentosWordix);
         escribirTeclado($teclado);
         /*Determinar si la plabra intento ganó e incrementar la cantidad de intentos */
-
         $ganoElIntento = esIntentoGanado($arregloDeIntentosWordix[$indiceIntento]);
         $nroIntento++;
     } while ($nroIntento <= CANT_INTENTOS && !$ganoElIntento);
 
-
     if ($ganoElIntento) {
         $nroIntento--;
-        $puntaje = obtenerPuntajeWordix($nroIntento, $palabraAdivinada);
-        echo "Adivinó la palabra Wordix en el intento " . $nroIntento . "!: " . $palabraIntento . " Obtuvo $puntaje puntos!";
+        $puntaje = obtenerPuntajeWordix($nroIntento, $palabraIntento);
+        echo "Adivinó la palabra Wordix en el intento " . $nroIntento . "!: " . $palabraIntento . " Obtuvo $puntaje puntos!\n";
     } else {
         $nroIntento = 0; //reset intento
         $puntaje = 0;
@@ -385,37 +376,12 @@ function jugarWordix($palabraWordix, $nombreUsuario)
 
 //FUNCION FUERA DEL ENUNCIADO//
 
-
-
-/*funcion que verifica si el numero que eligio el usuario corresponde a una palabra existente
-en el arreglo que colecciona palabras*/
-
-//
-    function verificarSiExistePalabra($indicePalabra, $coleccionPalabras) {
-
-    if ($indicePalabra < 0 || $indicePalabra >= count($coleccionPalabras)) {
-        echo "Índice de palabra no válido.\n";
-        return false;  // Si el índice es invalido, retornar false
-    };
-}
-    // Obtener la palabra correspondiente al índice
-    //pasa de el int del indice, al string de coleccion de partidas
-    $palabraBuscada = $coleccionpalabras[$indicePalabra-1];
-
-    /*funcion que verifica si el numero que eligio el usuario corresponde a una palabra existente
-en el arreglo que colecciona palabras*/
-
-
-
-
 //funcion que verifica que exista el nro de partida.
 /*@param int $nroPartida
          array $coleccionPartida
          
     @var int $i
     @var boolean $existe*/
-
-
 function verificarSiExistePartida($nroPartida, $coleccionPartidas) {
     $i = 0;
     $existe = false;
@@ -445,25 +411,18 @@ function verificarSiExisteJugador($jugador, $coleccionPartidas) {
     }
     return $encontrado;
 }
-
-
-    // Obtener la palabra correspondiente al índice
-    //pasa de el int del indice, al string de coleccion de partidas
-    $palabraBuscada = $coleccionpalabras[$indicePalabra-1];
-
-
-
-    
-    // Iterar sobre las partidas para verificar si el jugador ha jugado con esa palabra
+    //Iterar sobre las partidas para verificar si el jugador ha jugado con esa palabra
     //recorrido parcial
-
     //funcion que verifica si el usuario ya jugo anteriormente con la palabra que eligió
 
-    /*
-    @var int $i
-    @var boolean $encontrado 
-    
-    @param $jugador, $palabra, $coleccionPalabra*/
+    /**
+     * Iterar sobre las partidas para verificar si el jugador ha jugado con esa palabra
+     * recorrido parcial
+     * funcion que verifica si el usuario ya jugo anteriormente con la palabra que eligió
+     * @var int $i
+     * @var boolean $encontrado 
+     * @param $jugador, $palabra, $coleccionPalabra
+     */ 
 
     function verificarSiYaJugo($jugador, $palabra, $coleccionPartidas) {
         $i = 0;
@@ -475,7 +434,6 @@ function verificarSiExisteJugador($jugador, $coleccionPartidas) {
             if ($partida['jugador'] == $jugador && $partida['palabraWordix'] == $palabra) {
                 $encontrado = true; 
             }
-    
             $i++;  
         }
         // Si se encuentra la palabra se retorna true
@@ -568,13 +526,12 @@ válida), y retorne el número de la opción. La última opción del menú debe 
     8) Salir. \n";
 
 
-    echo "Por favor, in{grese un número del 1 al 8: ";
+    echo "Por favor, ingrese un número del 1 al 8: ";
     $opcion = trim(fgets(STDIN));
-        do {
-            echo "El nú{mero ingresado no es válido. Ingrese una opción **DEL 1 AL 8**: ";
-            $opcion = trim(fgets(STDIN));
-        }
-    while (!is_numeric($opcion) || $opcion < 1 || $opcion > 8);
+    while (!is_numeric($opcion) || $opcion <= 1 && $opcion >= 8){
+        echo "El número ingresado no es válido. Ingrese una opción **DEL 1 AL 8**: ";
+        $opcion = trim(fgets(STDIN));
+    }
     return $opcion;
     }
 
@@ -607,7 +564,7 @@ function leerPalabra5Letras() {
  */
 function solicitarNumeroEntre($min, $max) {
     //int $numero
-    echo "Ingrese un numero ENTERO entre ".$min." y ".$max.": ";
+    echo "Ingrese un numero de palabra que no haya usado antes, entre ".$min." y ".$max.": ";
     (int)$numero=trim(fgets(STDIN));
     while (!(is_numeric($numero) && (($numero == (int)$numero) && ($numero >= $min && $numero <= $max)))) {
         echo "Número invalido. Debe ingresar un número ENTERO entre " . $min . " y " . $max . ": ";
@@ -777,7 +734,6 @@ function solicitarJugador(){
     }
     return strtolower($nombre);
 }
-
 
 /** 
  * 11- Una función sin retorno que, dada una colección de partidas, muestre la colección de partidas ordenada
