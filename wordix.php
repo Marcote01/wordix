@@ -103,18 +103,26 @@ function elegirPalabraAleatoria($coleccionPalabra, $coleccionPartidas, $jugador)
     $palabrasDisponibles = [];
 
     foreach ($coleccionPartidas as $partida){
-        if ($partida["jugador"]===$jugador){
+        if ($partida["jugador"] === $jugador){
             $palabrasJugadas[] = $partida["palabraWordix"];
         }
     }
-    $palabrasDisponibles = array_diff($coleccionPalabra, $palabrasJugadas);
-
-    if (count($palabrasDisponibles)>0){
-        $indiceRandom = array_rand($palabrasDisponibles);
-        $palabraSeleccionada = $palabrasDisponibles[$indiceRandom];
+    foreach ($coleccionPalabra as $palabra){
+        $esDisponible = true;
+        foreach ($palabrasJugadas as $palabraJugada){
+            if ($palabra === $palabraJugada){
+                $esDisponible = false;
+                break;
+            }
+        }
+        if ($esDisponible){
+            $palabrasDisponibles[] = $palabra;
+        }
     }
-    else {
-        $palabraSeleccionada = -1;
+    $palabraSeleccionada = -1;
+    if (count($palabrasDisponibles) > 0){
+        $indiceRandom = rand(0, count($palabrasDisponibles) - 1);
+        $palabraSeleccionada = $palabrasDisponibles[$indiceRandom];
     }
     return $palabraSeleccionada;
 }
@@ -215,23 +223,28 @@ function imprimirIntentosWordix($estructuraIntentosWordix) {
  */
 function analizarPalabraIntento($palabraWordix, $estruturaIntentosWordix, $palabraIntento) {
     $cantCaracteres = strlen($palabraIntento);
-    $estructuraPalabraIntento = []; /*almacena cada letra de la palabra intento con su estado */
+    $estructuraPalabraIntento = []; // Almacena cada letra de la palabra intento
+    
+    // Recorre cada carácter de la palabra
     for ($i = 0; $i < $cantCaracteres; $i++) {
         $letraIntento = $palabraIntento[$i];
         $posicion = strpos($palabraWordix, $letraIntento);
-        if ($posicion === false) {
-            $estado = ESTADO_LETRA_DESCARTADA;
-        } else {
+        $estado = ESTADO_LETRA_DESCARTADA; 
+
+        if ($posicion !== false) {
             if ($letraIntento == $palabraWordix[$i]) {
                 $estado = ESTADO_LETRA_ENCONTRADA;
             } else {
                 $estado = ESTADO_LETRA_PERTENECE;
             }
         }
-        array_push($estructuraPalabraIntento, ["letra" => $letraIntento, "estado" => $estado]);
-    }
 
-    array_push($estruturaIntentosWordix, $estructuraPalabraIntento);
+        $estructuraPalabraIntento[count($estructuraPalabraIntento)] = [
+            "letra" => $letraIntento,
+            "estado" => $estado
+        ];
+    }
+    $estruturaIntentosWordix[count($estruturaIntentosWordix)] = $estructuraPalabraIntento;
     return $estruturaIntentosWordix;
 }
 
