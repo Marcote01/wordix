@@ -145,24 +145,25 @@ do {
              *  Se le solicita al usuario que ingrese un nombre de jugador y se muestran las estadisticas:
              *  @var string $nombreJugador
              */
-            do{ 
-                echo "Ingrese el nombre de usuario del cual desea ver las estadisticas, asegurese que dicho jugador haya jugado anteriormente: \n";
-            $nombreJugador= trim(fgets(STDIN));
-            } 
-            while(verificarSiExisteJugador($nombreJugador, $coleccionPartidas)==false);
-            $estadisticas=resumenJugador($coleccionPartidas, $nombreJugador);
-            echo "********************************************************\n" .
-            "Jugador: " . $resumenJugador['jugador'] . "\n" .
-            "Partidas: " . $resumenJugador['partidas'] . "\n" .
-            "Puntaje Total: " . $resumenJugador['puntaje'] . "\n" .
-            "Victorias: " . $resumenJugador['victorias'] . "\n" .
-            "Intento 1: " . $resumenJugador['intento1'] . "\n" .
-            "Intento 2: " . $resumenJugador['intento2'] . "\n" .
-            "Intento 3: " . $resumenJugador['intento3'] . "\n" .
-            "Intento 4: " . $resumenJugador['intento4'] . "\n" .
-            "Intento 5: " . $resumenJugador['intento5'] . "\n" .
-            "Intento 6: " . $resumenJugador['intento6'] . "\n" .
-            "********************************************************\n";
+            echo "Ingrese el nombre de usuario del cual desea ver las estadisticas, asegurese que dicho jugador haya jugado anteriormente: \n";
+            $jugador= trim(fgets(STDIN));
+            //while(verificarSiExisteJugador($nombreJugador, $coleccionPartidas)==false);
+            $estadisticas=resumenJugador($coleccionPartidas, $jugador);
+            imprimirResumenJugador($estadisticas);
+            do {
+                echo"Desea visualizar otro usuario? SI/NO ";
+                $visualizar=strtoupper(trim(fgets(STDIN)));
+                if ($visualizar == "SI"){
+                    echo "Ingrese el nombre de usuario del cual desea ver las estadisticas, asegurese que dicho jugador haya jugado anteriormente: \n";
+                    $jugador= trim(fgets(STDIN));
+                    $estadisticas=resumenJugador($coleccionPartidas, $jugador);
+                    imprimirResumenJugador($estadisticas);
+                }
+                else if ($visualizar != "NO" && $visualizar !="SI"){
+                    echo "Respuesta invalida. Debe ingresar SI o NO. ";
+                }
+            }
+            while ($visualizar != "NO");
             break;
         case 6: 
             /**
@@ -178,7 +179,7 @@ do {
             break;
         case 8: 
             //Echo que recorre una sola vez, y despide al jugador del programa.
-            echo"Gracias por jugar en wordix!! lo esperamos pronto!";
+            echo"Gracias por jugar en WORDIX! Te esperamos pronto :)";
             break;
     } 
 

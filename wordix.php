@@ -443,12 +443,7 @@ function verificarSiExisteJugador($jugador, $coleccionPartidas) {
     }
     return $encontrado;
 }
-    //Iterar sobre las partidas para verificar si el jugador ha jugado con esa palabra
-    //recorrido parcial
-    //funcion que verifica si el usuario ya jugo anteriormente con la palabra que eligió
-
     /**
-     * Iterar sobre las partidas para verificar si el jugador ha jugado con esa palabra
      * recorrido parcial
      * funcion que verifica si el usuario ya jugo anteriormente con la palabra que eligió
      * @var int $i
@@ -753,7 +748,35 @@ function resumenJugador($coleccionPartidas, $nombreJugador){
         return $resumenJugador; //Retorna la estructura asociativa
     }
 
-/**10. Una función solicitarJugador sin parámetros formales que solicite al usuario el nombre de un jugador y
+    /**
+     * Función que imprime el resumen de un jugador
+     * @param array $resumenJugador 
+     */
+    function imprimirResumenJugador($resumenJugador){
+        if ($resumenJugador["partidas"]>0){
+            $porcentajeVictorias = ($resumenJugador['victorias']) / ($resumenJugador['partidas'])*100;
+            echo "\n**************************************************************\n";
+            echo "Jugador: " . $resumenJugador['jugador'] . "\n";
+            echo "Partidas: " . $resumenJugador['partidas'] . "\n";
+            echo "Puntaje Total: " . $resumenJugador['puntaje'] . "\n";
+            echo "Victorias: " . $resumenJugador['victorias'] . "\n";
+            echo "Porcentaje Victorias: " . round($porcentajeVictorias, 2) . " %\n";
+            echo "Partidas adivinadas: \n";
+        
+            for ($i = 0; $i <= 5; $i++){
+                echo "Intento: ".($i+1).": ".$resumenJugador["intento".($i+1)]."\n";
+            }
+            echo "**************************************************************\n";
+        } 
+        else{
+            echo"El jugador ".$resumenJugador['jugador'].", no registra partidas guardadas. ";
+        }  
+}
+    
+    
+    
+    
+    /**10. Una función solicitarJugador sin parámetros formales que solicite al usuario el nombre de un jugador y
 retorne el nombre en minúsculas. La función debe asegurar que el nombre del jugador comience con una
 letra. (Ulice funciones predenidas de string). */
 function solicitarJugador(){
