@@ -69,7 +69,7 @@ do {
              * Se le solicita al usuario un número de partida y se muestra en pantalla
              * @var int $nroPartida 
              */
-                echo "Por favor, ingrese un número de partida existente, entre 1 y " . (count($coleccionPartidas) - 1) . ": ";
+                echo "Por favor, ingrese un número de partida existente, entre 0 y " . (count($coleccionPartidas) - 1) . ": ";
                 $nroPartida = trim(fgets(STDIN));            
                 mostrarPartida($nroPartida, $coleccionPartidas); 
                 do {
