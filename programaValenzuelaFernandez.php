@@ -129,7 +129,6 @@ do {
              */
             echo "Ingrese el nombre de usuario del cual desea ver las estadisticas, asegurese que dicho jugador haya jugado anteriormente: \n";
             $jugador= trim(fgets(STDIN));
-            //while(verificarSiExisteJugador($nombreJugador, $coleccionPartidas)==false);
             $estadisticas=resumenJugador($coleccionPartidas, $jugador);
             imprimirResumenJugador($estadisticas);
             do {

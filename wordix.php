@@ -312,10 +312,9 @@ function obtenerPuntajeWordix($nroIntento, $palabraAdivinada) {
     }
 
     $puntajeBase = 7 - $nroIntento; 
-    //inicializacion puntaje letras
     $puntajeLetras = 0;
 
-    // Calcular puntaje para cada letra de la palabra
+    // Calculamos el puntaje para cada letra de la palabra:
     for ($i = 0; $i < strlen($palabraAdivinada); $i++) {
         $letra = strtoupper($palabraAdivinada[$i]);
 
@@ -342,7 +341,7 @@ function jugarWordix($palabraWordix, $nombreUsuario) {
     $arregloDeIntentosWordix = [];
     $teclado = iniciarTeclado();
     $nroIntento = 1;
-    do {
+    do { 
         echo "Comenzar con el Intento " . $nroIntento . ":\n";
         $palabraIntento = leerPalabra5Letras();
         $indiceIntento = $nroIntento - 1;
@@ -357,7 +356,6 @@ function jugarWordix($palabraWordix, $nombreUsuario) {
     } while ($nroIntento <= CANT_INTENTOS && !$ganoElIntento);
 
     if ($ganoElIntento) {
-        $nroIntento--;
         $puntaje = obtenerPuntajeWordix($nroIntento, $palabraIntento);
         echo "¡Felicidades, ganaste! Lo lograste en el intento: " . $nroIntento . ". \nLa palabra ganadora fue: " . $palabraIntento . ".\n¡Obtuvo $puntaje puntos!\n";
     } else {
@@ -380,7 +378,8 @@ function jugarWordix($palabraWordix, $nombreUsuario) {
  * @param array $coleccionPartida    
  * @var int $i
  * @var boolean $existe*/
-function verificarSiExistePartida($nroPartida, $coleccionPartidas) {
+    
+    function verificarSiExistePartida($nroPartida, $coleccionPartidas) {
     $i = 0;
     $existe = false;
 
