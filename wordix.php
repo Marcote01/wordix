@@ -340,11 +340,11 @@ function jugarWordix($palabraWordix, $nombreUsuario) {
     /*Inicialización*/
     $arregloDeIntentosWordix = [];
     $teclado = iniciarTeclado();
-    $nroIntento = 1;
+    $nroIntento = 0;
     do { 
-        echo "Comenzar con el Intento " . $nroIntento . ":\n";
+        echo "Comenzar con el Intento " . ($nroIntento+1) . ":\n";
         $palabraIntento = leerPalabra5Letras();
-        $indiceIntento = $nroIntento - 1;
+        $indiceIntento = $nroIntento;
         $arregloDeIntentosWordix = analizarPalabraIntento($palabraWordix, $arregloDeIntentosWordix, $palabraIntento);
         $teclado = actualizarTeclado($teclado, $arregloDeIntentosWordix[$indiceIntento]);
         /*Mostrar los resultados del análisis: */
@@ -364,13 +364,13 @@ function jugarWordix($palabraWordix, $nombreUsuario) {
         echo "Seguí Jugando Wordix, la próxima será! ";
     }
 
-    $partida = [
+    $coleccionPartidas = [
         "palabraWordix" => $palabraWordix,
         "jugador" => $nombreUsuario,
         "intentos" => $nroIntento,
         "puntaje" => $puntaje
     ];
-    return $partida;
+    return $coleccionPartidas;
 }
 
 /** Funcion que verifica que exista el nro de partida.
@@ -440,8 +440,8 @@ function verificarSiYaJugo($jugador, $palabra, $coleccionPartidas) {
  * @var int $n
  */ 
 function agregarPartida($coleccionPartidas, $partida) {
-    $n=count($coleccionPartidas);
-    $coleccionPartidas[$n+1] = $partida; // Crea una copia modificada
+    $coleccionPartidas[] = $partida;
+    return $coleccionPartidas; // ******Nos faltaba retornar el arreglo actualizado. Esto hacia que falle al cargar un nuevo jugador.*****
 }
 
 
