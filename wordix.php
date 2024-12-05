@@ -438,6 +438,7 @@ function verificarSiYaJugo($jugador, $palabra, $coleccionPartidas) {
 /** Función sin retorno para agregar arreglos al array contenedor de partidas $coleccionPartidas
  * @param array $coleccionPartidas, $partida
  * @var int $n
+ * @return $coleccionPartidas
  */ 
 function agregarPartida($coleccionPartidas, $partida) {
     $coleccionPartidas[] = $partida;

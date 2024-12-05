@@ -24,9 +24,9 @@ $coleccionPartidas= cargarPartidas();
 
 /******* PROGRAMA PRINCIPAL *******/
 
-/** Declaración de variables: 
- * @var string $jugador
- * @var int $opcion */
+/** 
+ * @var int $opcion 
+ */
 
 //Proceso:
 do {
@@ -34,7 +34,10 @@ do {
     $opcion= seleccionarOpcion(); 
     switch ($opcion) {
         case 1: 
-            /*se solicita el nombre del jugador y se escribe bienvenida. Luego se juega con un número de palabra.*/
+            /*se solicita el nombre del jugador y se escribe bienvenida. Luego se juega con un número de palabra.
+            *@var string $jugador
+            *@var array $partida
+            */
             $jugador=solicitarJugador();
             escribirMensajeBienvenida(($jugador));
             do {
@@ -54,7 +57,7 @@ do {
         case 2: 
             /** Solicita el nombre de jugador, y permite jugar con una palabra aleatoria
              * de las disponibles. Verifica que la misma no haya sido jugada previamente.
-             * @var string  */
+             * @var string $jugador, $palabraAleatoria */
             $jugador=solicitarJugador();
             escribirMensajeBienvenida(($jugador));   
             $palabraAleatoria=elegirPalabraAleatoria($coleccionPalabras, $coleccionPartidas, $jugador);
@@ -88,7 +91,10 @@ do {
                 break;
         case 4:
             /**
-             * Solicita un nombre de jugador. Muestra la primera partida ganadora del mismo.
+             *  Solicita un nombre de jugador. Muestra la primera partida ganadora del mismo.
+             * @var string $nombreJugador
+             * @var boolean $resultado
+             *
              */
                 echo "Ingrese el nombre de usuario del cual desea ver la primera partida ganada: \n";
                 $nombreJugador = trim(fgets(STDIN));
@@ -126,6 +132,7 @@ do {
             /**
              *  Se le solicita al usuario que ingrese un nombre de jugador y se muestran las estadisticas:
              *  @var string $nombreJugador
+             * @var array $estadisticas
              */
             echo "Ingrese el nombre de usuario del cual desea ver las estadisticas, asegurese que dicho jugador haya jugado anteriormente: \n";
             $jugador= trim(fgets(STDIN));
@@ -164,7 +171,10 @@ do {
             while ($visualizar != "NO");
             break;
         case 7: 
-            //Solicita palabra de 5 letras al usuario. La agrega en MAYUS a la colección de palabras
+            /**
+             * Solicita palabra de 5 letras al usuario. La agrega en MAYUS a la colección de palabras
+             * @var string $palabraParaAgregar
+             * @var array $coleccionPalabras*/
             $palabraParaAgregar=leerPalabra5Letras();
             $coleccionPalabras=agregarPalabra($coleccionPalabras, $palabraParaAgregar);
             do {
